@@ -277,7 +277,7 @@ const[viewCategory,setViewCategory] = useState(localStorage.getItem("Category"))
                 <div className="d-flex justify-content-end pb-5" style={{zIndex:2}}>
                 
 
-                <button onClick={() => {setAlbumForm({title:"",seo:"",category_id:""});setInputType("New");setInput(true);}}className="btn btn-success mx-2">+</button>
+                <button onClick={() => {setAlbumForm({title:"",seo:"",category_id:""});setInputType("New");setInput(true);}} id='btn-new' className="btn btn-success mx-2">+</button>
                 <a href="#" onClick={()=>setViewCategory(null)} className="px-3">View All</a>
                 </div>
                 <div className="gallery-grid ">

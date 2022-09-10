@@ -36,7 +36,7 @@ function Nav(){
 
           )}
           
-<div className="d-flex justify-content-center">
+{/* <div className="d-flex justify-content-center">
 <Link to='/'>
 
   <a class="navbar-brand px-1" href="#" id='logo'>
@@ -44,20 +44,27 @@ function Nav(){
   </a>
   </Link>
 
-</div>
+</div> */}
 
-<nav class="navbar navbar-expand-xl navbar-dark fixed">
+<nav class="navbar navbar-expand-xl navbar-dark fixed p-5">
 
 
   <div class="container-fluid">
   
-  <a class="navbar-brand " href="#" id='logo-title'></a>
-  
+  {/* <a class="navbar-brand " href="#" id='logo-title'></a> */}
+  <Link to='/'>
+
+  <a class="navbar-brand px-1" href="#" id='logo'>
+    <img src={logo} class="d-inline-block align-top" alt=""/>
+  </a>
+  </Link>
+
+
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse  justify-content-center" id="navbarNav">
+    <div class="collapse navbar-collapse  justify-content-end" id="navbarNav">
       <ul class="navbar-nav  text-center">
 
         <Link to='/'>
