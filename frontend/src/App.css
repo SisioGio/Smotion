@@ -90,7 +90,7 @@ ul img{
   height: 75px;
 }
 ul li{
-  padding: .5rem .75rem;
+  padding: 0.5rem 0rem 0.5rem 0.75rem;
 }
 a{
   letter-spacing: 5px;
@@ -635,7 +635,12 @@ select::-ms-expand {
     border-bottom: 1px solid #ced4da;
     border-left:1px solid #ced4da;
 }
+nav{
+  padding: 2rem 10rem !important;
+}
 .gallery-grid{
+
+  padding: 5rem 10rem;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(250px,1fr));

@@ -13,7 +13,7 @@ function Main(){
     }
   useEffect(() =>{
 
-    fetch("/get_categories").then(
+    fetch("/get_albums/").then(
       res => res.json()
     ).then(
       data => {
@@ -59,18 +59,18 @@ function Main(){
                       categories.files.map((file,i)=> (
                         
 
-                        <Link to='albums'>
+                        <Link to='photos'>
                         
-                        <div onClick={() => localStorage.setItem("Category", file.id)} id="people-section" class='position-relative text-center gallery-preview  pb-5' >
+                        <div onClick={() => localStorage.setItem("Album", file.id)} id="people-section" class='position-relative text-center gallery-preview  pb-5' >
                             
                                
-                        <img src={"http://127.0.0.1:5000/get_category_image/"+file.id} id='people-img' alt={file.seo} ></img>
+                        <img src={"http://127.0.0.1:5000/get_album_img/"+file.id} id='people-img' alt={file.seo} ></img>
                         <div class='pt-5'>
                             <h1>{file.title}</h1>
                             
-                                <p class='px-3 px-sm-5'>
+                                {/* <p class='px-3 px-sm-5'>
                                 {file.text}
-                                </p>
+                                </p> */}
                         
 
                         </div>

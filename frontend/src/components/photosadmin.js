@@ -15,7 +15,7 @@ const[album,setAlbum] = useState(localStorage.getItem("Album"))
 const[filter_album,setFilterAlbums] = useState([{}])
 const[filterCategory,setFilterCategory] = useState(null)
 const[filteredPhotos,setFilteredPhotos] = useState([{}])
-
+const [selectedFile, setSelectedFile] = useState([]);
 var counterPics  = 0
 
 function increaseCounter (){
@@ -25,28 +25,16 @@ function resetCounter (){
   counterPics = 0
 }
   const [photoForm, setPhotoForm] = useState({
-    album_id :"",
-    category_id:""
+    album_id :""
   })
 
       const resetFilter = () =>{
         localStorage.setItem("Album",null)
-        setAlbum(null);
-        setFilterCategory(null);
+        setAlbum(null)
 
 
       }
 
-      const handleAlbumFilterSelection = (e)=> {
-
-        setAlbum(e.target.value)
-        console.log(e.target.value)
-      }
-      const handleCategorySelection = (e)=> { 
-       
-        setFilterCategory(e.target.value);
-        setPhotoForm.category_id = e.target.value
-      }
       const handlephotoPicture = (e) => {
         // handle validations
         const file = e.target.files[0];
@@ -68,27 +56,18 @@ function resetCounter (){
       }
     )
   }
+  const handleFileInput = (e) => {
+    // handle validations
+    e.preventDefault();
+    const file = e.target.files;
+    setSelectedFile(file);
+    console.log(file)
     
+  };
   useEffect(() =>{
     getAllPhotos();
   },[])
-  useEffect(() =>{
-
-    fetch("/get_categories").then(
-      res => res.json()
-    ).then(
-      data => {
-        setCategories(data);
-        console.log(data);
-
-
-
-
-      }
-    )
-
-  },[])
- 
+  
   useEffect(() =>{
 
     fetch("/get_albums").then(
@@ -104,7 +83,9 @@ function resetCounter (){
   const submitForm = (event) => {
     // event.preventDefault();
     const formData = new FormData();
-    formData.append("photo",photoPicture)
+    for (let i = 0; i < selectedFile.length; i++) {
+      formData.append("file", selectedFile[i]);
+    }
     formData.append("album",album)
       axios
       .post("/new_photo/", formData,
@@ -200,7 +181,7 @@ function resetCounter (){
 
 
                 <div className="input-container my-2">
-                <select mandatory   className="form-control" name="category" id="albums">
+                <select required   className="form-control" name="category" id="albums">
                 
                 <option value="" selected disabled hidden>Choose album</option>
                 {(typeof albums.files === 'undefined') ? (
@@ -221,7 +202,7 @@ function resetCounter (){
 
             
                <div className="input-container py-3 custom-file">
-                <input id="customFile"   name="picture"  className="custom-file-input my-2" accept="image/*" type="file" onChange={handlephotoPicture}/>
+                <input id="customFile"  required multiple name="picture"  className="custom-file-input my-2" accept="image/*" type="file" onChange={handleFileInput} />
                 <label class="custom-file-label" for="customFile">Choose photo photo</label>
 
             </div>

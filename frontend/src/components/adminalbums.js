@@ -10,11 +10,9 @@ const[data,setData] = useState([{}]);
 const[inputType,setInputType]=useState("New")
 const [selectedFile, setSelectedFile] = useState([]);
 const [albumPicture, setAlbumPicture] = useState(null);
-const[category,setCategory] = useState(null);
-const[categories,setCategories] = useState([{}]);
 
 const[feedback,setFeedback] = useState(null)
-const[viewCategory,setViewCategory] = useState(localStorage.getItem("Category"))
+
   const [albumForm, setAlbumForm] = useState({
     title: "",
     seo:"",
@@ -32,10 +30,7 @@ const[viewCategory,setViewCategory] = useState(localStorage.getItem("Category"))
         
       };
 
-      const handleCategorySelection = (e)=> {
-       
-        setCategory(e.target.value)
-      }
+
   
       const handleAlbumPicture = (e) => {
         // handle validations
@@ -57,26 +52,7 @@ const[viewCategory,setViewCategory] = useState(localStorage.getItem("Category"))
       }
     )
   },[])
-  useEffect(() =>{
-
-    fetch("/get_categories").then(
-      res => res.json()
-    ).then(
-      data => {
-        setCategories(data);
-        console.log(data);
-
-        setCategory(categories.files[0].id);
-
-
-      }
-    )
-
-
-
-
-  },[])
- 
+  
 
 
   const submitForm = (event) => {
@@ -88,7 +64,6 @@ const[viewCategory,setViewCategory] = useState(localStorage.getItem("Category"))
       }
     formData.append("album_file",albumPicture)
     formData.append("title",albumForm.title)
-    formData.append("category",category)
     formData.append("seo",albumForm.seo)
       axios
       .post("/new_album/", formData,
@@ -100,19 +75,18 @@ const[viewCategory,setViewCategory] = useState(localStorage.getItem("Category"))
       maxContentLength: 10000000},
       )
       .then((res) => {
-        console.log(res) 
-        setFeedback(res)
+        alert(res)
       })
-      .catch((err) => alert(err));
+      .catch((err) => {
+        alert(err)}
+        );
     } 
 
     const updateAlbum = (event) => {
        // event.preventDefault();
     const formData = new FormData();
-    alert("Updating album")
     formData.append("album_file",albumPicture)
     formData.append("title",albumForm.title)
-    formData.append("category",category)
     formData.append("seo",albumForm.seo)
     formData.append("album_id",album_id)
     
@@ -189,25 +163,10 @@ const[viewCategory,setViewCategory] = useState(localStorage.getItem("Category"))
               
                 <form  encType="multipart/form-data">
 
-                <div className="input-container my-2">
-                <select mandatory  onChange={handleCategorySelection}  className="form-control" name="category" id="categories">
-                <option value="" selected disabled hidden>Choose category</option>
-                {(typeof data.files === 'undefined') ? (
-                      <p>Loading...</p>
-                    ) : (
-                      categories.files.map((file,i)=> (
-                        
-                        <option selected={albumForm.category_id==file.id? true:false} value={file.id}>{file.title}</option>         
-
-                      )))}
-
-
-              
-                </select>
-
-                   
-                </div>
-
+                {feedback? (
+                  <h5>{feedback}</h5>
+                ):null}
+            
 
                 <div className="input-container my-2">
                     
@@ -225,14 +184,14 @@ const[viewCategory,setViewCategory] = useState(localStorage.getItem("Category"))
                     {/* {renderErrorMessage("pass")} */}
                 </div> 
                <div className="input-container py-3 custom-file">
-                <input id="customFile"   name="picture"  className="custom-file-input my-2" accept="image/*" type="file" onChange={handleAlbumPicture}/>
-                <label class="custom-file-label" for="customFile">Choose album photo</label>
+                <input id="customFile"  required  name="picture"  className="custom-file-input my-2" accept="image/*" type="file" onChange={handleAlbumPicture}/>
+                <label class="custom-file-label"   for="customFile">Choose album photo</label>
 
             </div>
 
            
             {inputType == "New"? (<div className="input-container py-3 custom-file">
-                <input id="customFile" multiple  name="picture"  className="custom-file-input my-2" accept="image/*" type="file" onChange={handleFileInput}/>
+                <input id="customFile" required multiple  name="picture"  className="custom-file-input my-2" accept="image/*" type="file" onChange={handleFileInput}/>
                 <label class="custom-file-label" for="customFile">Choose photos</label>
 
             </div> ): null}
@@ -278,7 +237,7 @@ const[viewCategory,setViewCategory] = useState(localStorage.getItem("Category"))
                 
 
                 <button onClick={() => {setAlbumForm({title:"",seo:"",category_id:""});setInputType("New");setInput(true);}} id='btn-new' className="btn btn-success mx-2">+</button>
-                <a href="#" onClick={()=>setViewCategory(null)} className="px-3">View All</a>
+  
                 </div>
                 <div className="gallery-grid ">
 
@@ -288,7 +247,7 @@ const[viewCategory,setViewCategory] = useState(localStorage.getItem("Category"))
                     ) : (
                       data.files.map((file,i)=> (
 
-                      (viewCategory == file.category_id || viewCategory === null)?(
+                      
 
                         <div>
 
@@ -310,7 +269,7 @@ const[viewCategory,setViewCategory] = useState(localStorage.getItem("Category"))
 
 
 
-                      ) : null
+                     
                      
                       ))
 

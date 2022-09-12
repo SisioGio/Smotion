@@ -46,7 +46,7 @@ function Nav(){
 
 </div> */}
 
-<nav class="navbar navbar-expand-xl navbar-dark fixed p-5">
+<nav class="navbar navbar-expand-xl navbar-dark fixed ">
 
 
   <div class="container-fluid">
@@ -72,33 +72,14 @@ function Nav(){
           <a class="nav-link" aria-current="page" href="#home">Home</a>
         </li>
         </Link>
-        <Link to='/photos'>
-        <li class="nav-item">
-          <a class="nav-link" href="#about">Gallery</a>
-        </li>
-        </Link>
+       
         <li class="nav-item">
           <a class="nav-link" href="#about">About Me</a>
         </li>
         
 
-        {/* {token ? null:(
-            <Link to='/login'>
-            <li class="nav-item">
-              
-            <a className="nav-link" href="">Admin</a>
-            </li>
-            </Link>
-        )} */}
-       
         
-        {token ? (
-            <Link to='/categories'>
-            <li class="nav-item">
-            <a class="nav-link "onClick={()=> setFocus("Categories")} href="">Categories</a>
-            </li>
-            </Link>
-        ):null}
+ 
 
                {token? (
                 <Link to='/albums'>
