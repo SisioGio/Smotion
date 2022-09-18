@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
+  "proxy": "https://calm-wave-28039.herokuapp.com/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
     "@fortawesome/free-regular-svg-icons": "^6.1.2",
