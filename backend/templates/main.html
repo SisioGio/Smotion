@@ -1,0 +1,32 @@
+{% extends "template.html" %} {% block content %}
+
+
+<div class="w-25 mx-auto py-5">
+  <form
+  class="border border-dark bg-white p-3"
+  enctype="multipart/form-data"
+  method="POST"
+>
+  {{ form.hidden_tag() }}
+  <div class="form-group text-center" id="contact-us-title">
+    <h3>Upload new invoices</h3>
+  </div>
+
+  <div class="form-group my-3">
+    <div class="custom-file">
+      {{ form.picture.label(class="custom-file-label", placeholder='File') }} {{
+      form.picture(class="custom-file-input", placeholder='File') }} {% if
+      form.picture.errors %} {% for error in form.picture.errors %}
+      <small id="passwordHelp" class="text-danger"
+        ><strong>Error: </strong>{{error}}
+      </small>
+      {% endfor %} {% endif%}
+    </div>
+  </div>
+  <button type="submit" class="btn btn-black w-100">Upload</button>
+</form>
+
+
+</div>
+
+{% endblock %}
