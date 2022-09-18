@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Routers,Switch, Route, Routes } from "react-ro
 import Categories from './components/categories'
 import useToken from './components/useToken'
 import Header from './components/header'
-
+import { HashRouter } from 'react-router-dom'
 import AdminAlbums from './components/adminalbums'
 import PhotosAdmin from './components/photosadmin'
 function App() {
@@ -18,26 +18,32 @@ function App() {
   
     return (
 
-      <Router>
+      
                <div className="">
 
 {/*     
                <Header token={removeToken}/> */}
-                  
+                  <>
+                  <HashRouter>
                   <Nav/>
-                  <Routes>
-
-                  <Route exact path='/' element ={<Main/>}/>
+                  
+                    <Routes>
+                    <Route exact path='/' element ={<Main/>}/>
                   <Route exact path='/login' element ={<Login setToken={setToken}/>}/>
                   <Route exact path='/categories' element ={<Categories/>}/>
                   <Route exact path='/albums' element ={<AdminAlbums/>}/>
                   <Route exact path='/photos' element ={<PhotosAdmin/>}/>
-                  </Routes>
+                    </Routes>
+                  
+             
+                  </HashRouter>
 
+                 
+                  </>
 
                 </div>
 
-    </Router>
+   
    
 
 
