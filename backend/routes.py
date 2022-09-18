@@ -17,6 +17,7 @@ import os
 import json
 import time
 from flask.helpers import send_from_directory
+
 from flask_cors import cross_origin
 from flask_jwt_extended import (
     create_access_token,
@@ -26,6 +27,11 @@ from flask_jwt_extended import (
     jwt_required,
     JWTManager,
 )
+
+@app.route('/')
+@cross_origin()
+def serve():
+    return app.send_static_file('index.html')
 
 
 def save_document(new_file):
@@ -68,10 +74,7 @@ def create_token():
     response = {"access_token": access_token}
     return response
 
-@app.route('/')
-@cross_origin()
-def serve():
-    return app.send_from_directory(app.static_folder,'index.html')
+
 # @app.route("/new_category/", methods=["GET", "POST"])
 # def new_category():
 #     try:
