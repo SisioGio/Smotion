@@ -17,7 +17,7 @@ import os
 import json
 import time
 from flask.helpers import send_from_directory
-
+from flask_cors import cross_origin
 from flask_jwt_extended import (
     create_access_token,
     get_jwt,
@@ -69,6 +69,7 @@ def create_token():
     return response
 
 @app.route('/')
+@cross_origin()
 def serve():
     return send_from_directory(app.static_folder,'index.html')
 # @app.route("/new_category/", methods=["GET", "POST"])
@@ -343,3 +344,8 @@ def get_picture(img_id):
     picture = Picture.query.get(img_id)
 
     return send_file(picture.path)
+
+
+@app.route("/test/", methods=["GET"])
+def test():
+    return "Hello from Flaks!"
