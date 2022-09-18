@@ -71,7 +71,7 @@ def create_token():
 @app.route('/')
 @cross_origin()
 def serve():
-    return send_from_directory(app.static_folder,'index.html')
+    return app.send_from_directory(app.static_folder,'index.html')
 # @app.route("/new_category/", methods=["GET", "POST"])
 # def new_category():
 #     try:
