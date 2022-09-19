@@ -35,7 +35,7 @@ function Login(props){
           console.log(response.data.access_token)
           props.setToken(response.data.access_token);
             
-          navigate("/categories");
+          navigate("/");
           window.location.reload(false)  
           
         //   localStorage.setItem("access_token", response.data.access_token);

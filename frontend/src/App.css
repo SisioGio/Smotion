@@ -359,66 +359,44 @@ input:focus {
 .form-group {
   position: relative;
 }
-/* 
 
-.form-group::after {
-  position: absolute;
-  content: '';
-  width: 0%;
-  height: 0.175rem;
-  background-color: black;
-  left: 0;
-  bottom: 0;
-  ;
-  box-sizing: border-box;
-  color: white;
-}
-.form-group:hover:after {
-  position: absolute;
-  content: '';
-  width: 100%;
-  height: 0.175rem;
-  background-color: black;
-  left: 0.5;
-  bottom: 0.0rem;
-  box-sizing: border-box;
-  transition: 0.3s;
-} */
-/* .btn::after {
-  position: absolute;
-  content: '';
-  width: 0%;
-  height: 0.175rem;
-  background-color: red;
-  left: 0px;
-  bottom: 0px;
-  ;
-  box-sizing: border-box;
-  color: white;
-}
-.btn:hover:after {
-  position: absolute;
-  content: '';
-  width: 100%;
-  height: 0.175rem;
-  background-color: #cc0102;
-  left: 0px;
-  bottom: 3px;
-  margin: 0 ;
-  box-sizing: border-box;
-  transition: 0.5s;
-} */
 #pictures-table {
   background-color: white;
 }
-#about {
-  color: white;
-  padding-top: 5rem;
+
+#about{
+    padding: 10rem 1rem 5rem 1rem;
 }
-#about-content {
+
+
+#about img{
+  border-radius: 36px;
+  width: 100%
+}
+.about-content {
   background-color: white;
   padding: 1rem;
 }
+.about-img img{
+  width: 100%;
+}
+.about-img {
+  color: #111;
+  width: 50%;
+  text-align: center;
+  font-size: 90px;
+  float: left;
+  margin: 0rem 1rem 1rem 0;
+  background-clip: content-box;
+}
+
+#about p{
+  font-size: 14px;
+  letter-spacing: 1px;
+  line-height: 22px;
+  word-spacing: 6px;
+}
+
 #btn-contact {
   background-color: white;
   font-family: 'Montserrat', sans-serif;
@@ -439,15 +417,7 @@ input:focus {
   background-color: rgba(255, 255, 255, 0.75);
   border-radius: 15px;
 }
-/*
-#people-img{
-  background: black url(../images/people_1.jpg) center center no-repeat;
-  background-repeat:no-repeat;
-  background-attachment:fixed;
-  background-position:center;
-  background-position: center center;
-  background-size: cover;
-} */
+
 
 #cont-background{
   position: absolute;
@@ -496,6 +466,9 @@ form {
 #btn-new{
   z-index: 100;
 }
+.min-height{
+  min-height: 100vh;
+}
 input {
   color:white
 }
@@ -515,7 +488,7 @@ textarea {
 } */
 #contact-us-title
  {
-  display: none !important;
+  padding: 2rem 0rem
 }
 #contact-us-title:hover:after {
   display: none !important;
@@ -625,7 +598,7 @@ p {
   line-height: 1.1;
   background: transparent;
     -webkit-appearance: none;
- 
+  
 }
 select::-ms-expand {
   display: none;
@@ -636,7 +609,7 @@ select::-ms-expand {
     border-left:1px solid #ced4da;
 }
 nav{
-  padding: 2rem 10rem !important;
+  padding: 2rem 2rem !important;
 }
 .gallery-grid{
 
@@ -846,6 +819,8 @@ nav a{
         flex: 100%;
         max-width: 100%;
       }
+
+    
 }
 .gallery-preview p{
 
@@ -876,6 +851,26 @@ nav a{
 
 
 @media (min-width: 576px) {
+
+ #about{
+    padding: 10rem 1rem 5rem 1rem;
+}
+
+#about p{
+  font-size: 15px;
+  letter-spacing: 1px;
+  line-height: 24px;
+  word-spacing: 6px;
+}
+.about-img {
+  color: #111;
+  width: 50%;
+  text-align: center;
+  
+  float: left;
+  margin: 0rem 2rem 2rem 1rem;
+  background-clip: content-box;
+}
             #container-new-image{
               padding-top:4rem;
             }
@@ -933,6 +928,27 @@ nav a{
 
 
 @media (min-width: 768px) {
+  #about{
+    padding: 10rem 5rem 5rem 5rem;
+}
+
+#about p{
+  font-size: 18px;
+  letter-spacing: 1px;
+  line-height: 28px;
+  word-spacing: 8px;
+}
+.about-img {
+  color: #111;
+  width: 40%;
+  text-align: center;
+  
+  float: left;
+  margin: 0rem 2rem 2rem 1rem;
+  background-clip: content-box;
+}
+
+
   #about-content {
     font-size: 1rem;
     word-spacing: .3rem;
@@ -993,6 +1009,27 @@ nav a{
     transform: scale(1.025);
   }
 @media (min-width: 992px) {
+  #about{
+    padding: 10rem 7.5rem 5rem 7.5rem;
+}
+
+#about p{
+  font-size: 18px;
+  letter-spacing: 2px;
+  line-height: 32px;
+  word-spacing: 8px;
+}
+.about-img {
+  color: #111;
+  width: 50%;
+  text-align: center;
+  
+  float: left;
+  margin: 0rem 2rem 2rem 1rem;
+  background-clip: content-box;
+}
+
+
   #logo img{
     width: 180px;
   }
@@ -1034,6 +1071,32 @@ nav a{
 
 
 @media (min-width: 1200px) {
+
+  #about{
+    padding: 10rem 25rem 5rem 25rem;
+    align-items: center;
+    text-align: center;
+    display: table;
+    vertical-align: middle;
+}
+
+#about p{
+  font-size: 18px;
+  letter-spacing: 2px;
+  line-height: 32px;
+  word-spacing: 8px;
+  padding-top: 2rem;
+
+}
+.about-img {
+  color: #111;
+  width: 30%;
+  text-align: center;
+  
+  float: left;
+  margin: 0rem 2rem 2rem 1rem;
+  background-clip: content-box;
+}
   #about-content {
     font-size: 1.25rem;
     word-spacing: .3rem;

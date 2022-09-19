@@ -154,7 +154,7 @@ const[feedback,setFeedback] = useState(null)
       </div>
       ):null}
       
-              <div className="d-flex py-5 home-img-container justify-content-center height-100vh"  >
+              <div className="d-flex py-5 home-img-container justify-content-center "  >
             
             {input?(
               <div id="inputForm" className="position-absolute text-center col-12 col-sm-8 col-xl-6" style={{backgroundColor:"white",padding:'25px 50px',borderRadius:"25px",width:"100%",zIndex:"100"}}>

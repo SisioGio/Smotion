@@ -29,7 +29,7 @@ from flask_jwt_extended import (
 )
 
 @app.route('/')
-@cross_origin()
+# @cross_origin()
 def serve():
     return app.send_static_file('index.html')
 
@@ -73,73 +73,6 @@ def create_token():
     access_token = create_access_token(identity=email)
     response = {"access_token": access_token}
     return response
-
-
-# @app.route("/new_category/", methods=["GET", "POST"])
-# def new_category():
-#     try:
-#         # json_data = request.json["title"]
-#         # print(json_data)
-#         # data = json.loads(json_data)
-#         # print(json_data["title"])
-#         # print(json_data["text"])
-#         # print(json_data["seo"])
-#         title = request.form.get("title")
-#         text = request.form.get("text")
-#         seo = request.form.get("seo")
-#         data = request.files.get("file")
-
-#         path = save_document(data)
-
-#         new_category = Category(title=title, text=text, seo=seo, path=path)
-#         db.session.add(new_category)
-#         db.session.commit()
-#         print("New category added")
-#         return {"Message": "Daje!"}
-#     except Exception as e:
-#         print("Error while creating category: " + str(e))
-#         return "Error while creatin category", 400
-
-
-# @app.route("/update_category/", methods=["GET", "POST"])
-# def update_category():
-#     try:
-#         category = Category.query.get_or_404(request.form.get("id"))
-#         print("Update category: " + request.form.get("id"))
-#         title = request.form.get("title")
-#         text = request.form.get("text")
-#         print("text is " + text)
-#         seo = request.form.get("seo")
-#         data = request.files.get("file")
-#         category.title = title
-#         category.text = text
-#         category.seo = seo
-#         path = category.path
-
-#         if data:
-#             path = save_document(data)
-#         category.path = path
-
-#         db.session.commit()
-#         print("Category updated!")
-#         return {"Message": "Daje!"}
-#     except Exception as e:
-#         print("Error while updating category: " + str(e))
-#         return "Error while updating category", 400
-
-
-# @app.route("/delete_category/", methods=["GET", "POST"])
-# def delete_category():
-#     try:
-#         category = Category.query.get_or_404(request.form.get("id"))
-#         db.session.delete(category)
-
-#         db.session.commit()
-#         print("Category deleted!")
-#         return {"Message": "Daje!"}
-#     except Exception as e:
-#         print("Error while deleting category: " + str(e))
-#         return "Error while deleting category", 400
 
 
 def is_locked(filepath):
@@ -249,17 +182,6 @@ def logout():
     return response
 
 
-# @app.route("/get_categories/", methods=["GET"])
-# def get_categories():
-#     categories = Category.query.all()
-#     return jsonify(files=[i.serialize for i in categories])
-
-
-# @app.route("/get_category_image/<img_id>", methods=["GET"])
-# def get_category_image(img_id):
-#     image = Category.query.get(img_id)
-#     return send_file(image.path)
-
 
 @app.route("/get_album_image/<img_id>", methods=["GET"])
 def get_album_image(img_id):
@@ -351,4 +273,24 @@ def get_picture(img_id):
 
 @app.route("/test/", methods=["GET"])
 def test():
-    return "Hello from Flaks!"
+    return "Hello from server!"
+
+
+@app.route("/sendemail/",methods=["GET","POST"])
+def sendemail():
+
+    
+        
+    from_email = request.form.get("email")
+    from_name = request.form.get("name")
+    from_surname = request.form.get("surname")
+    from_phnumber = request.form.get("phone")
+    text = request.form.get("text")
+    msg = Message("Hey There",recipients="alessiogiovannini@hotmail.it".split())
+    msg.html = "<p>Hello!</p><p></p>"+ from_name + " would like to be contacted!</p><p></p><p> Client email:  "+ from_email+"</p><p></p><p> Client Phone No.:  " + from_phnumber+"</p><p></p><p> Client name No.:  " + from_name+ ":<p></p>"+ text +"</p><p></p>"
+    mail.send(msg)
+        
+
+    print(from_email + " | " + from_name + " | " + from_surname + " | " + from_phnumber + " | " + text)
+    
+    return "All great!"

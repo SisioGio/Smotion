@@ -10,6 +10,7 @@ import useToken from './useToken'
 
 function Nav(){
   const { token, removeToken, setToken } = useToken();
+  const[currentPath,setCurrentPath] = useState(null)
     const [authenticated, setauthenticated] = useState(localStorage.getItem(localStorage.getItem("token")|| false));
     
     const setFocus = (focusOn) => {
@@ -17,9 +18,17 @@ function Nav(){
         console.log(focusOn)
       };
 
+      const updatePath = () => {
+        setCurrentPath(window.location.pathname);
+        console.log("Chanding path to " + window.location.pathname)
+      };
+   
+
+
 
 
   useEffect(() => {
+   
     const token = localStorage.getItem("token");
     
     if (token) {
@@ -27,7 +36,10 @@ function Nav(){
     } else {
       setauthenticated(false);
     }
-  }, []);
+  }, [currentPath]);
+
+
+
     return(
 
         <div className="navContainer">
@@ -54,7 +66,7 @@ function Nav(){
   {/* <a class="navbar-brand " href="#" id='logo-title'></a> */}
   <Link to='/'>
 
-  <a class="navbar-brand px-1" href="#" id='logo'>
+  <a class="navbar-brand px-1" onClick={()=>setCurrentPath("/")} href="#main-external" id='logo'>
     <img src={logo} class="d-inline-block align-top" alt=""/>
   </a>
   </Link>
@@ -67,17 +79,33 @@ function Nav(){
     <div class="collapse navbar-collapse  justify-content-end" id="navbarNav">
       <ul class="navbar-nav  text-center">
 
-        <Link to='/'>
+        {currentPath==="/"?(
+          <li class="nav-item">
+                <a onClick={()=>setCurrentPath("/")} class="nav-link" aria-current="page" href="#home">Home</a>
+              </li>
+        ):(
+          <Link to='/'>
+              <li class="nav-item">
+                <a onClick={()=>setCurrentPath("/")} class="nav-link" aria-current="page" href="#home">Home</a>
+              </li>
+        </Link>
+        )}  
+        
+
+       
+        <Link to='/about'>
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#home">Home</a>
+          <a onClick={()=>setCurrentPath("about")} class="nav-link" href="#about">About Me</a>
         </li>
         </Link>
        
-        <li class="nav-item">
-          <a class="nav-link" href="#about">About Me</a>
+        {currentPath ==="/"?(
+          <li class="nav-item">
+          <a onClick={()=>setCurrentPath("/")} class="nav-link"  href="#contact">Contact</a>
         </li>
-        
-
+        ):(
+null
+        )}
         
  
 
@@ -85,7 +113,7 @@ function Nav(){
                 <Link to='/albums'>
 
 <li class="nav-item">
-<a class="nav-link " onClick={()=> setFocus("Albums")} href="#">Albums</a>
+<a class="nav-link " onClick={()=> (setCurrentPath("albums"),setFocus("Albums"))} href="#">Albums</a>
 </li>
 </Link>
 ):null}
@@ -93,7 +121,7 @@ function Nav(){
 {token? (
  <Link to='/photos'>
 <li class="nav-item">
-<a onClick={()=> setFocus("Pictures")} class="nav-link " href="#">Pictures</a>
+<a onClick={()=> (setFocus("Pictures"),setCurrentPath("pics"))} class="nav-link " href="#">Pictures</a>
 </li>
 </Link>
 ):null}

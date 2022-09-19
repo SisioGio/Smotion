@@ -9,15 +9,28 @@ from flask_cors import CORS, cross_origin
 from flask_jwt_extended import JWTManager
 from datetime import timedelta
 
-app = Flask(__name__,static_folder=os.path.abspath("./build"),static_url_path='')
-CORS(app, support_credentials=True)
+# app = Flask(__name__,static_folder=os.path.abspath("./build"),static_url_path='')
+app = Flask(__name__)
+
+
 app.config["DEBUG"] = True
 app.config["TESTING"] = False
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
 app.config["JWT_SECRET_KEY"] = "please-remember-to-change-me"
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
-jwt = JWTManager(app)
+app.config['MAIL_SERVER']= 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_DEBUG'] = True
+app.config['MAIL_USERNAME'] = "onlineshop420it@gmail.com"
+app.config['MAIL_PASSWORD'] = "WarsawViterbo98!"
+app.config['MAIL_DEFAULT_SENDER'] = "onlineshop420it@gmail.com"
+app.config['MAIL_MAX_EMAILS'] = 1
 
+
+jwt = JWTManager(app)
+mail=Mail(app)
 
 path = os.getcwd()
 UPLOAD_FOLDER = os.path.join(path, "backend/static/images")
@@ -39,5 +52,5 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
-
+CORS(app, support_credentials=True)
 import backend.routes
