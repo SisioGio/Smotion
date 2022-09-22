@@ -38,7 +38,7 @@ def save_document(new_file):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(new_file.filename)
     picture_fn = random_hex + f_ext
-    new_file_path = os.path.join(app.root_path, "static/images/", picture_fn)
+    new_file_path = os.path.join("https://calm-wave-28039.herokuapp.com/", "static/images/", picture_fn)
     new_file.save(new_file_path)
 
     return new_file_path
