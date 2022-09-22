@@ -9,8 +9,8 @@ from flask_cors import CORS, cross_origin
 from flask_jwt_extended import JWTManager
 from datetime import timedelta
 
-# app = Flask(__name__,static_folder=os.path.abspath("./build"),static_url_path='')
-app = Flask(__name__)
+app = Flask(__name__,static_folder=os.path.abspath("./build"),static_url_path='')
+# app = Flask(__name__)
 
 
 app.config["DEBUG"] = True
