@@ -101,7 +101,9 @@ null
         )}
         
  
-
+        <Link to='/login'>
+        <a class="nav-link " onClick={()=> (setCurrentPath("login"))} href="#">Login</a>
+        </Link>
                {token? (
                 <Link to='/albums'>
 
