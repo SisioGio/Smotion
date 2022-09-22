@@ -64,7 +64,7 @@ function Main(){
                         <div onClick={() => localStorage.setItem("Album", file.id)} id="people-section" class='position-relative text-center gallery-preview  pb-5' >
                             
                                
-                        <img src={"http://127.0.0.1:5000/get_album_img/"+file.id} id='people-img' alt={file.seo} ></img>
+                        <img src={"https://calm-wave-28039.herokuapp.com/get_album_img/"+file.id} id='people-img' alt={file.seo} ></img>
                         <div class='pt-5'>
                             <h1>{file.title}</h1>
                             

@@ -6,7 +6,7 @@ import Instagram from './../images/icons8-instagram-48.png'
 import Login from './login.js'
 import Header from './header'
 import useToken from './useToken'
-
+import { NavHashLink } from 'react-router-hash-link';
 
 function Nav(){
   const { token, removeToken, setToken } = useToken();
@@ -48,22 +48,14 @@ function Nav(){
 
           )}
           
-{/* <div className="d-flex justify-content-center">
-<Link to='/'>
 
-  <a class="navbar-brand px-1" href="#" id='logo'>
-    <img src={logo} class="d-inline-block align-top" alt=""/>
-  </a>
-  </Link>
-
-</div> */}
 
 <nav class="navbar navbar-expand-xl navbar-dark fixed ">
 
 
   <div class="container-fluid">
   
-  {/* <a class="navbar-brand " href="#" id='logo-title'></a> */}
+
   <Link to='/'>
 
   <a class="navbar-brand px-1" onClick={()=>setCurrentPath("/")} href="#main-external" id='logo'>
@@ -80,6 +72,7 @@ function Nav(){
       <ul class="navbar-nav  text-center">
 
         {currentPath==="/"?(
+          
           <li class="nav-item">
                 <a onClick={()=>setCurrentPath("/")} class="nav-link" aria-current="page" href="#home">Home</a>
               </li>

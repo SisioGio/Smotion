@@ -43,6 +43,8 @@ body{
 
 }
 
+
+
 #login-form{
   
 }
@@ -157,7 +159,12 @@ body{
     background-size: cover;
 
 }
-
+@media(max-width: 560px){
+  body{
+    background: black url("./images/home-background-phone.jpg")  center center no-repeat;
+   
+}
+}
 #background{
 
   width:100%;

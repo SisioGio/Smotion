@@ -5,24 +5,28 @@ function About(){
     
     return(
       <div id='about'>
-<h1>About me</h1>
-<div class="about-img">
+                
+                <h1>About me</h1>
 
-<img src={about_pic} alt="" />
-</div>
-<p>Przede wszystkim dziękuję za odwiedzenie mojej strony 😊
 
-W branży fotograficznej jestem od 11 lat. Fotograf z zamiłowania i pasji. Świetnie czuje się w reportażach, zdjęciach eventowych, biznesowych, reklamowych, fotografii backstage.
 
-Jestem przekonana, że dobre zdjęcie może zmienić Twój biznes o 360 stopni, być najlepszą wizytówką zarówno Twoją jak i Twojej firmy.
+                <div class="about-img">
 
-Największą satysfakcję sprawia mi poznawanie nowych osób, bo każdy fotoreportaż to inna historia.
+                <img src={about_pic} alt="" />
+                </div>
+                <p>Przede wszystkim dziękuję za odwiedzenie mojej strony 😊
 
-Poznajmy się i stwórzmy razem coś fajnego! 😊
+                W branży fotograficznej jestem od 11 lat. Fotograf z zamiłowania i pasji. Świetnie czuje się w reportażach, zdjęciach eventowych, biznesowych, reklamowych, fotografii backstage.
 
-Prywatnie miłośniczka muzyki i podróży, najlepiej z aparatem w ręku 😊
+                Jestem przekonana, że dobre zdjęcie może zmienić Twój biznes o 360 stopni, być najlepszą wizytówką zarówno Twoją jak i Twojej firmy.
 
-</p>
+                Największą satysfakcję sprawia mi poznawanie nowych osób, bo każdy fotoreportaż to inna historia.
+
+                Poznajmy się i stwórzmy razem coś fajnego! 😊
+
+                Prywatnie miłośniczka muzyki i podróży, najlepiej z aparatem w ręku 😊
+
+                </p>
       
       </div>
 
