@@ -76,9 +76,13 @@ const[feedback,setFeedback] = useState(null)
       )
       .then((res) => {
         alert(res)
+        console.log(res)
       })
       .catch((err) => {
-        alert(err)}
+        alert(err)
+        console.log(err)
+      }
+     
         );
     } 
 
@@ -125,6 +129,15 @@ const[feedback,setFeedback] = useState(null)
       )
       .then((res) => {
         console.log(res)
+        fetch("/get_albums").then(
+          res => res.json()
+        ).then(
+          data => {
+            setData(data);
+            console.log(data)
+          }
+        )
+        
 
         
       })
