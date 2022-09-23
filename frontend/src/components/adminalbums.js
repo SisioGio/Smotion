@@ -57,7 +57,7 @@ const[feedback,setFeedback] = useState(null)
 
   const submitForm = (event) => {
  
-    // event.preventDefault();
+    event.preventDefault();
     const formData = new FormData();
     for (let i = 0; i < selectedFile.length; i++) {
         formData.append("file", selectedFile[i]);
@@ -112,7 +112,7 @@ const[feedback,setFeedback] = useState(null)
     const deleteAlbum = (event) => {
         const formData = new FormData();
 
-
+        event.preventDefault();
     formData.append("album_id",album_id)
     
       axios
@@ -130,7 +130,6 @@ const[feedback,setFeedback] = useState(null)
       })
       .catch((err) => alert("File Upload Error"));
       setInput(false)
-      window.location.reload(false)
     }
     
 

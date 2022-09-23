@@ -26,8 +26,8 @@ function App() {
 {/*     
                <Header token={removeToken}/> */}
                   <>
-                  {/* <HashRouter> */}
-                  <Router>
+                  <HashRouter>
+                  {/* <Router> */}
 
                  
                   <Nav/>
@@ -41,9 +41,9 @@ function App() {
                   <Route exact path='/photos' element ={<PhotosAdmin/>}/>
                   <Route exact path='/about' element ={<About/>}/>
                     </Routes>
-                    </Router>
+                  
                <Footer/>
-                  {/* </HashRouter> */}
+                  </HashRouter>
 
                  
                   </>
