@@ -259,7 +259,7 @@ const[feedback,setFeedback] = useState(null)
                         </div>
                         </Link>
                         <div className="w-100">
-                        <a href="#" onClick={() =>{setInput(true);setAlbumID(file.id);setInputType("Update");setAlbumForm({title:file.title,seo:file.seo,category_id:file.category_id})} }>Edit</a>
+                        <button  className="btn btn-large" onClick={() =>{setInput(true);setAlbumID(file.id);setInputType("Update");setAlbumForm({title:file.title,seo:file.seo,category_id:file.category_id})} }>Edit</button>
                        
                         </div>
                         

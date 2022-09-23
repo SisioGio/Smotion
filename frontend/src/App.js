@@ -17,7 +17,10 @@ import Footer from "./components/footer";
 function App() {
 
   const { token, removeToken, setToken } = useToken();
-  
+  const RemoveHashFromUrl = () => {
+    const url = window.location.href.replace('/#', '');
+    window.location.href = url;
+};
     return (
 
       
@@ -33,13 +36,18 @@ function App() {
                   <Nav/>
                   
                     <Routes>
-                    <Route exact path='/#' element ={<Main/>}/>
-                    <Route exact path='/' element ={<Main/>}/>
-                  <Route exact path='/login' element ={<Login setToken={setToken}/>}/>
-                  <Route exact path='/categories' element ={<Categories/>}/>
-                  <Route exact path='/albums' element ={<AdminAlbums/>}/>
-                  <Route exact path='/photos' element ={<PhotosAdmin/>}/>
-                  <Route exact path='/about' element ={<About/>}/>
+                    {/* <Route exact path='/#' element ={<Main/>}/> */}
+
+                    <Route exact path='/' element={<Main/>}>
+                    {/* {location.hash ? removeEventListener() : <Main/>} */}
+                    
+                    </Route>
+
+                    <Route exact path='/login' element ={<Login setToken={setToken}/>}/>
+                    <Route exact path='/categories' element ={<Categories/>}/>
+                    <Route exact path='/albums' element ={<AdminAlbums/>}/>
+                    <Route exact path='/photos' element ={<PhotosAdmin/>}/>
+                    <Route exact path='/about' element ={<About/>}/>
                     </Routes>
                   
                <Footer/>
