@@ -102,14 +102,19 @@ null
         
  
         <Link to='/login'>
-        <a class="nav-link " onClick={()=> (setCurrentPath("login"))} href="#">Login</a>
+        
+        <li class="nav-item">
+                <a class="nav-link " onClick={()=> (setCurrentPath("login"))} href="#">Login</a>
+                </li>
         </Link>
+
+
                {token? (
                 <Link to='/albums'>
 
-<li class="nav-item">
-<a class="nav-link " onClick={()=> (setCurrentPath("albums"),setFocus("Albums"))} href="#">Albums</a>
-</li>
+                <li class="nav-item">
+                <a class="nav-link " onClick={()=> (setCurrentPath("albums"),setFocus("Albums"))} href="#">Albums</a>
+                </li>
 </Link>
 ):null}
 
