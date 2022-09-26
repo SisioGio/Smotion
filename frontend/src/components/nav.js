@@ -43,6 +43,7 @@ function Nav(){
     return(
 
         <div className="navContainer">
+          
           {token ?  <Header token={removeToken}/>:(
    null
 
@@ -69,13 +70,21 @@ function Nav(){
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse  justify-content-end" id="navbarNav">
+     
       <ul class="navbar-nav  text-center">
 
-        {currentPath==="/"?(
-          
+        {currentPath==="/" || currentPath === null?(
           <li class="nav-item">
-                <a onClick={()=>setCurrentPath("/")} class="nav-link" aria-current="page" href="#home">Home</a>
+               <NavHashLink to="#home" onClick={()=>setCurrentPath("/")} className="nav-link"
+          >
+           Home
+
+          </NavHashLink>
               </li>
+          
+          // <li class="nav-item">
+          //       <a onClick={()=>setCurrentPath("/")} class="nav-link" aria-current="page" href="#/#home">Home</a>
+          //     </li>
         ):(
           <Link to='/'>
               <li class="nav-item">
@@ -93,20 +102,26 @@ function Nav(){
         </Link>
        
         {currentPath ==="/"?(
-          <li class="nav-item">
-          <a onClick={()=>setCurrentPath("/")} class="nav-link"  href="#contact">Contact</a>
-        </li>
+            <li class="nav-item">
+            <NavHashLink to="#contact" onClick={()=>setCurrentPath("/")} className="nav-link"
+       >
+        Contact
+
+       </NavHashLink>
+           </li>
         ):(
 null
         )}
         
- 
-        <Link to='/login'>
+        {token ? (null):(
+          <Link to='/login'>
         
         <li class="nav-item">
                 <a class="nav-link " onClick={()=> (setCurrentPath("login"))} href="#">Login</a>
                 </li>
         </Link>
+        )}
+        
 
 
                {token? (

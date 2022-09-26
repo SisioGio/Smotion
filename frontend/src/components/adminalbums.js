@@ -75,11 +75,19 @@ const[feedback,setFeedback] = useState(null)
       maxContentLength: 10000000},
       )
       .then((res) => {
-        alert(res)
         console.log(res)
+        fetch("/get_albums").then(
+          res => res.json()
+        ).then(
+          data => {
+            setData(data);
+            console.log(data)
+          }
+        )
+
+        
       })
       .catch((err) => {
-        alert(err)
         console.log(err)
       }
      
@@ -107,7 +115,9 @@ const[feedback,setFeedback] = useState(null)
 
         
       })
-      .catch((err) => alert("File Upload Error"));
+      .catch((err) => {
+        alert("File Upload Error")
+    console.log(err)}); 
 
 
 
@@ -137,11 +147,14 @@ const[feedback,setFeedback] = useState(null)
             console.log(data)
           }
         )
-        
+
 
         
       })
-      .catch((err) => alert("File Upload Error"));
+      .catch((err) => {
+        alert("File Upload Error")
+      console.log(err)
+      });
       setInput(false)
     }
     
@@ -267,7 +280,7 @@ const[feedback,setFeedback] = useState(null)
                         <Link to="./../photos">
                         
                         <div className=" w-100   p-2 text-center album" onClick={() => (localStorage.setItem("Album", file.id))} >
-                        <img alt={file.seo} className="img-fluid"src={"http://127.0.0.1:5000/get_album_image/"+file.id} ></img>
+                        <img alt={file.seo} className="img-fluid"src={file.path} ></img>
                         <h3>{file.title}</h3> 
                         </div>
                         </Link>

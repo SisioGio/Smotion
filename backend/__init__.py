@@ -27,6 +27,11 @@ app.config['MAIL_USERNAME'] = "onlineshop420it@gmail.com"
 app.config['MAIL_PASSWORD'] = "WarsawViterbo98!"
 app.config['MAIL_DEFAULT_SENDER'] = "onlineshop420it@gmail.com"
 app.config['MAIL_MAX_EMAILS'] = 1
+app.config['S3_BUCKET'] = "smotion"
+app.config["S3_KEY"] = "AKIAYG4A4OEXYDU6ED4R"
+app.config['S3_SECRET'] = "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"
+app.config['S3_LOCATION'] = 'http://{}.s3.amazonaws.com/'.format("smotion")
+
 
 
 jwt = JWTManager(app)

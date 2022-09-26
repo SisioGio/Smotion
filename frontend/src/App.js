@@ -14,35 +14,30 @@ import AdminAlbums from './components/adminalbums'
 import PhotosAdmin from './components/photosadmin'
 import About from './components/about'
 import Footer from "./components/footer";
+
+
 function App() {
 
   const { token, removeToken, setToken } = useToken();
-  const RemoveHashFromUrl = () => {
-    const url = window.location.href.replace('/#', '');
-    window.location.href = url;
-};
+
     return (
 
       
                <div className="min-height">
 
-{/*     
-               <Header token={removeToken}/> */}
+
                   <>
-                  <HashRouter>
-                  {/* <Router> */}
+                  <HashRouter basename={process.env.PUBLIC_URL}>
+                
 
                  
                   <Nav/>
                   
                     <Routes>
-                    {/* <Route exact path='/#' element ={<Main/>}/> */}
+                   
 
                     <Route exact path='/' element={<Main/>}>
-                    {/* {location.hash ? removeEventListener() : <Main/>} */}
-                    
                     </Route>
-
                     <Route exact path='/login' element ={<Login setToken={setToken}/>}/>
                     <Route exact path='/categories' element ={<Categories/>}/>
                     <Route exact path='/albums' element ={<AdminAlbums/>}/>

@@ -284,7 +284,7 @@ function resetCounter (){
                         </div> */}
                         <div className="col-12 col-sm-2 pr-2 " style={{zIndex:2}}>
                         <button onClick={() => {setPhotoForm({category_id:"",album_id:""});setInput(true);}}className="btn btn-success">+</button>
-                        <a href="#" className="px-5" onClick={() => resetFilter()}>View All</a>
+                        {/* <a href="#" className="px-5" onClick={() => resetFilter()}>View All</a> */}
                         </div>
    
 
@@ -309,7 +309,7 @@ function resetCounter (){
                           increaseCounter(),
                         
                           <div onClick={() =>{setInput(true);setPhotoID(file.id);setInputType("Update");setPhotoForm({album_id:file.album,category_id:""})} }  className={file.css_class}>
-                            <img className=""src={"http://127.0.0.1:5000/get_picture/"+file.id} ></img>
+                            <img className=""src={file.path} ></img>
 
                            
                         </div>

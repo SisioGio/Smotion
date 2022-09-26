@@ -1,6 +1,6 @@
 from importlib.resources import path
 import re
-
+import requests
 from flask import render_template, url_for, flash, redirect, request, send_file
 from backend import app, db, mail, ALLOWED_EXTENSIONS, jwt
 from backend.forms import add_category, add_album
@@ -17,8 +17,9 @@ import os
 import json
 import time
 from flask.helpers import send_from_directory
-
+import boto3, botocore
 from flask_cors import cross_origin
+from werkzeug.utils import secure_filename
 from flask_jwt_extended import (
     create_access_token,
     get_jwt,
@@ -27,6 +28,24 @@ from flask_jwt_extended import (
     jwt_required,
     JWTManager,
 )
+
+
+
+# s3 = boto3.client(
+#    "s3",
+#    aws_access_key_id=app.config['S3_KEY'],
+#    aws_secret_access_key=app.config['S3_SECRET']
+# )
+
+def s3_login():
+    session = boto3.Session(
+    aws_access_key_id="AKIAYG4A4OEXYDU6ED4R", 
+    aws_secret_access_key="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")
+    s3_client = session.client('s3')
+    return s3_client
+    
+    
+    
 
 @app.route('/')
 # @cross_origin()
@@ -42,6 +61,25 @@ def save_document(new_file):
     new_file.save(new_file_path)
 
     return new_file_path
+
+def save_document_to_s3(s3,new_file, acl="public-read"):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(new_file.filename)
+    filename =secure_filename(random_hex + f_ext)
+    try:
+        s3.upload_fileobj(new_file, "smotion", filename)
+        object_url = "https://s3-eu-central-1.amazonaws.com/smotion/{0}".format(filename)
+        
+        
+        print(object_url)
+    except Exception as e:
+        # This is a catch all exception, edit this part to fit your needs.
+        print("Something Happened: ", e)
+        return e
+    
+
+    # after upload file to s3 bucket, return filename of the uploaded file
+    return filename,object_url
 
 
 @app.after_request
@@ -105,10 +143,11 @@ def new_album():
     seo = request.form.get("seo")
     title = request.form.get("title")
     album_picture = request.files.get("album_file")
-    album_picture_path = save_document(album_picture)
+    s3 = s3_login()
+    album_picture_path,image_url = save_document_to_s3(s3,album_picture)
     new_album = Album(
         title=title,
-        path=album_picture_path,
+        path=image_url,
         seo=seo,
     )
     db.session.add(new_album)
@@ -117,17 +156,18 @@ def new_album():
     data = request.files.getlist("file")
     for image in data:
         print("Saving image" + image.filename)
-        filename = save_document(image)
-        with Image.open(filename) as img:
-            # img = Image.open(filename)
-            css_class = ""
-            if img.width > img.height:
-                css_class = "h-stretch"
-            elif img.height > img.width:
-                css_class = "v-stretch"
-            elif img.height == img.width:
-                css_class = "big-stretch"
-        new_image = Picture(album_id=new_album.id, path=filename, class_name=css_class)
+        filename,image_url = save_document_to_s3(s3,image)
+        print(image_url)
+        img = Image.open(requests.get(image_url, stream=True).raw)
+        # img = Image.open(filename)
+        css_class = ""
+        if img.width > img.height:
+            css_class = "h-stretch"
+        elif img.height > img.width:
+            css_class = "v-stretch"
+        elif img.height == img.width:
+            css_class = "big-stretch"
+        new_image = Picture(album_id=new_album.id, path=image_url, class_name=css_class)
         db.session.add(new_image)
         db.session.commit()
     # except Exception as e:
@@ -186,7 +226,7 @@ def logout():
 @app.route("/get_album_image/<img_id>", methods=["GET"])
 def get_album_image(img_id):
     image = Album.query.get(img_id)
-    return send_file(image.path)
+    return image.path
 
 
 @app.route("/get_albums/", methods=["GET"])
@@ -198,8 +238,8 @@ def get_albums():
 @app.route("/get_album_img/<img_id>", methods=["GET"])
 def get_album_img(img_id):
     image = Album.query.get(img_id)
-
-    return send_file(image.path)
+    print("Image path is " + image.path)
+    return "Hello"
 
 
 @app.route("/get_photos/", methods=["GET"])
@@ -273,7 +313,7 @@ def get_picture(img_id):
 
 @app.route("/test/", methods=["GET"])
 def test():
-    return "Hello from server!"
+    return "Hello from Alessio!"
 
 
 @app.route("/sendemail/",methods=["GET","POST"])
