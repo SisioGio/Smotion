@@ -2,15 +2,17 @@ import React ,{useState,useEffect} from "react";
 import './../App.css';
 import logo from './../images/logo_nav.png'
 import { Link } from "react-router-dom";
-import Instagram from './../images/icons8-instagram-48.png'
-import Login from './login.js'
-import Header from './header'
+// import Instagram from './../images/icons8-instagram-48.png'
+// import Login from './login.js'
+// import Header from './header'
 import useToken from './useToken'
 import { NavHashLink } from 'react-router-hash-link';
+import axios from "axios";
+function Nav(props){
 
-function Nav(){
+
   const { token, removeToken, setToken } = useToken();
-  const[currentPath,setCurrentPath] = useState(null)
+  const[currentPath,setCurrentPath] = useState(props.currentUrl)
     const [authenticated, setauthenticated] = useState(localStorage.getItem(localStorage.getItem("token")|| false));
     
     const setFocus = (focusOn) => {
@@ -23,7 +25,24 @@ function Nav(){
         console.log("Chanding path to " + window.location.pathname)
       };
    
-
+      function logMeOut() {
+        console.log("Logging out")
+        axios({
+          method: "POST",
+          url:"/logout",
+        })
+        .then((response) => {
+          console.log(response)
+          removeToken()
+          window.location.reload(false);
+    
+        }).catch((error) => {
+          if (error.response) {
+            console.log(error.response)
+            console.log(error.response.status)
+            console.log(error.response.headers)
+            }
+        })}
 
 
 
@@ -43,23 +62,18 @@ function Nav(){
     return(
 
         <div className="navContainer">
-          
-          {token ?  <Header token={removeToken}/>:(
-   null
 
-          )}
           
 
 
 <nav class="navbar navbar-expand-xl navbar-dark fixed ">
-
 
   <div class="container-fluid">
   
 
   <Link to='/'>
 
-  <a class="navbar-brand px-1" onClick={()=>setCurrentPath("/")} href="#main-external" id='logo'>
+  <a class="navbar-brand px-1" onClick={()=>props.setUrl("/")} href="#main-external" id='logo'>
     <img src={logo} class="d-inline-block align-top" alt=""/>
   </a>
   </Link>
@@ -73,74 +87,66 @@ function Nav(){
      
       <ul class="navbar-nav  text-center">
 
-        {currentPath==="/" || currentPath === null?(
+        {props.currentUrl==="/" || props.currentUrl === null?(
           <li class="nav-item">
-               <NavHashLink to="#home" onClick={()=>setCurrentPath("/")} className="nav-link"
+               <NavHashLink to="#home" onClick={()=>props.setUrl("/")} className="nav-link"
           >
            Home
 
           </NavHashLink>
               </li>
-          
-          // <li class="nav-item">
-          //       <a onClick={()=>setCurrentPath("/")} class="nav-link" aria-current="page" href="#/#home">Home</a>
-          //     </li>
+       
         ):(
           <Link to='/'>
               <li class="nav-item">
-                <a onClick={()=>setCurrentPath("/")} class="nav-link" aria-current="page" href="#home">Home</a>
+                <a onClick={()=>props.setUrl("/")} class="nav-link" aria-current="page" href="#home">Home</a>
               </li>
         </Link>
         )}  
         
-
-       
         <Link to='/about'>
         <li class="nav-item">
-          <a onClick={()=>setCurrentPath("about")} class="nav-link" href="#about">About Me</a>
+          <a onClick={()=>props.setUrl("about")} class="nav-link" href="#about">About Me</a>
         </li>
         </Link>
        
-        {currentPath ==="/"?(
+        {props.currentUrl ==="/"?(
             <li class="nav-item">
-            <NavHashLink to="#contact" onClick={()=>setCurrentPath("/")} className="nav-link"
-       >
-        Contact
-
-       </NavHashLink>
+            <NavHashLink to="#contact" onClick={()=>props.setUrl("/")} className="nav-link"
+              >Contact</NavHashLink>
            </li>
         ):(
-null
+          null
         )}
         
-        {token ? (null):(
-          <Link to='/login'>
-        
-        <li class="nav-item">
-                <a class="nav-link " onClick={()=> (setCurrentPath("login"))} href="#">Login</a>
-                </li>
-        </Link>
-        )}
-        
-
-
                {token? (
                 <Link to='/albums'>
 
                 <li class="nav-item">
-                <a class="nav-link " onClick={()=> (setCurrentPath("albums"),setFocus("Albums"))} href="#">Albums</a>
+                <a class="nav-link " onClick={()=> (props.setUrl("albums"),setFocus("Albums"))} href="#">Albums</a>
                 </li>
-</Link>
-):null}
+              </Link>
+              ):null}
 
-{token? (
- <Link to='/photos'>
-<li class="nav-item">
-<a onClick={()=> (setFocus("Pictures"),setCurrentPath("pics"))} class="nav-link " href="#">Pictures</a>
-</li>
-</Link>
-):null}
+          {token? (
+          <Link to='/photos'>
+          <li class="nav-item">
+          <a onClick={()=> (setFocus("Pictures"),props.setUrl("pics"))} class="nav-link " href="#">Pictures</a>
+          </li>
+          </Link>
+          ):null}
+
+
+           {token ? (
    
+            
+    <li class="nav-item">
+            <a class="nav-link " onClick={()=> (logMeOut(),props.setUrl("/"))} href="#">Logout</a>
+            </li>
+   
+        ):(null
+         
+        )}
        
         
         

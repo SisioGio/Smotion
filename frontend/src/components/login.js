@@ -81,7 +81,7 @@ function Login(props){
                     </div>
                     <div className="input-container py-3">
                         
-                        <input onChange={handleChange} type={loginForm.password} name="password"  text={loginForm.password}  className="p-2"   required placeholder="Password" value={loginForm.password}/>
+                        <input onChange={handleChange} type="password" name="password"  text={loginForm.password}  className="p-2"   required placeholder="Password" value={loginForm.password}/>
                         {renderErrorMessage("pass")}
                     </div>
                     <div className="btn btn-black position-relative text-dark w-100 py-1  border-round" id='submit-button'>

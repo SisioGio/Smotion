@@ -19,6 +19,13 @@ import Footer from "./components/footer";
 function App() {
 
   const { token, removeToken, setToken } = useToken();
+  const[currentUrl,setCurrentUrl] = useState("/")
+
+  const setUrl = (newUrl) => {
+    
+    setCurrentUrl(newUrl);
+    console.log(currentUrl)
+  }
 
     return (
 
@@ -31,18 +38,18 @@ function App() {
                 
 
                  
-                  <Nav/>
+                  <Nav setUrl={setUrl} currentUrl={currentUrl}/>
                   
                     <Routes>
                    
 
-                    <Route exact path='/' element={<Main/>}>
+                    <Route exact path='/' element={<Main setUrl={setUrl}/>}>
                     </Route>
                     <Route exact path='/login' element ={<Login setToken={setToken}/>}/>
-                    <Route exact path='/categories' element ={<Categories/>}/>
-                    <Route exact path='/albums' element ={<AdminAlbums/>}/>
-                    <Route exact path='/photos' element ={<PhotosAdmin/>}/>
-                    <Route exact path='/about' element ={<About/>}/>
+                    {/* <Route exact path='/categories' element ={<Categories token={token}/>}/> */}
+                    <Route exact path='/albums' element ={<AdminAlbums token={token}/>}/>
+                    <Route exact path='/photos' element ={<PhotosAdmin token={token}/>}/>
+                    <Route exact path='/about' element ={<About token={token}/>}/>
                     </Routes>
                   
                <Footer/>

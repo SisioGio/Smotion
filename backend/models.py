@@ -42,3 +42,22 @@ class Picture(db.Model):
             "album": self.album_id,
             "css_class": self.class_name,
         }
+
+class Client(db.Model):
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    path = db.Column(db.String(60), nullable=False)
+    upload_date = db.Column(db.DateTime, default=datetime.utcnow)
+    name = db.Column(db.String(60), nullable=False)
+
+    def __repr__(self):
+        return f'<Client "{self.name}">'
+
+    @property
+    def serialize(self):
+        """Return object data in easily serializable format"""
+        return {
+            "id": self.id,
+            "path": self.path,
+            "upload": self.upload_date,
+            "name":self.name
+        }

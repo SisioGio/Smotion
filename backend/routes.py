@@ -4,7 +4,7 @@ import requests
 from flask import render_template, url_for, flash, redirect, request, send_file
 from backend import app, db, mail, ALLOWED_EXTENSIONS, jwt
 from backend.forms import add_category, add_album
-from backend.models import Picture, Album
+from backend.models import Picture, Album, Client
 from time import localtime, strftime
 from flask_mail import Message
 from flask import jsonify
@@ -334,3 +334,36 @@ def sendemail():
     print(from_email + " | " + from_name + " | " + from_surname + " | " + from_phnumber + " | " + text)
     
     return "All great!"
+
+
+@app.route("/new_client/", methods=["POST"])
+def new_client():
+    s3 = s3_login()
+    data = request.files.getlist("file")
+    for image in data:
+        print("Saving client logo " + image.filename)
+
+        filename,image_url = save_document_to_s3(s3,image)
+        print(image_url)
+        new_client = Client(
+                            name="Dummy",
+                            path=image_url,
+        )
+        db.session.add(new_client)
+        db.session.commit()
+    
+    return "New  Client added"
+
+@app.route("/get_clients/", methods=["GET"])
+def get_clients():
+    clients = Client.query.all()
+    return jsonify(files=[i.serialize for i in clients])
+
+@app.route("/delete_client/", methods=["POST"])
+def delete_client():
+    client_id = request.form.get("client_id")
+    client_to_remove = Client.query.get_or_404(client_id)
+    db.session.delete(client_to_remove)
+    db.session.commit()
+    
+    return "Client removed"

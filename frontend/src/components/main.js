@@ -2,7 +2,8 @@ import React ,{useState,useEffect} from "react";
 import './../App.css';
 import { Link } from "react-router-dom";
 import Contact from "./contact";
-function Main(){
+import { NavHashLink } from 'react-router-hash-link';
+function Main(props){
 
     const[categories,setCategories] = useState([{}]);
     const[category,setCategory] = useState(null)
@@ -15,11 +16,11 @@ function Main(){
 
     fetch("/get_albums/").then(
       res => res.json()
-    ).then(
+    ).then( 
       data => {
         setCategories(data);
         console.log(data)
-      }
+      } 
     )
   },[])
 
@@ -37,7 +38,9 @@ function Main(){
                 <p className="py-2">Weddings - Events - People - Food</p>
                 <p className="py-2">Warsaw, Poland</p>
                 <div>
-                <a href="#contact-form" className="btn btn-black position-relative text-dark">Contact Me</a>
+                <NavHashLink to="#contact"  className="btn btn-black position-relative text-dark"
+              >Contact me</NavHashLink>
+                {/* <a href="#contact-form" className="btn btn-black position-relative text-dark">Contact Me</a> */}
                 </div>
             
             </div>
@@ -59,9 +62,9 @@ function Main(){
                       categories.files.map((file,i)=> (
                         
 
-                        <Link to='photos'>
+                        <Link to='photos' >
                         
-                        <div onClick={() => localStorage.setItem("Album", file.id)} id="people-section" class='position-relative text-center gallery-preview  pb-5' >
+                        <div onClick={() => (localStorage.setItem("Album", file.id),props.setUrl("photos"),localStorage.setItem("CurrentUrl", "photos"))} id="people-section" class='position-relative text-center gallery-preview  pb-5' >
                             
                                
                         <img src={file.path} id='people-img' alt={file.seo} ></img>

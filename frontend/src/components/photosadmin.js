@@ -1,15 +1,13 @@
-import React,{ useEffect, useState,useRef } from "react";
+import React,{ useEffect, useState } from "react";
 
 import axios from "axios";
 
-function Adminphotos() {
+function Adminphotos(props) {
 const[photo_id,setPhotoID]=useState(null)
 const[input,setInput]=useState(false);
 const[data,setData] = useState([{}]);
 const[inputType,setInputType]=useState("New")
 const [photoPicture, setPhotoPicture] = useState(null);
-const[category,setCategory] = useState(null);
-const[categories,setCategories] = useState([{}]);
 const[albums,setAlbums] = useState([{}]);
 const[album,setAlbum] = useState(localStorage.getItem("Album"))
 const[filter_album,setFilterAlbums] = useState([{}])
@@ -160,12 +158,6 @@ function resetCounter (){
         <div className="spacerXXL">
              
               </div>
-            
-              
-
-
-            
-
 
 
               <div className="d-flex py-5 home-img-container justify-content-center min-height"  >
@@ -252,40 +244,13 @@ function resetCounter (){
                 <div className="d-flex justify-content-around w-100">
                 <div className="row w-100 justify-content-end">
 
-                    {/* <div className="col-12 col-sm-2 px-2">
-                    <select mandatory  onChange={handleCategorySelection}  className="dropDown" name="category" id="categories_filter">
-                        
-                        <option value="" selected={filterCategory ? false:true}  disabled >Choose Category</option>
-                        {(typeof categories.files === 'undefined') ? (
-                              <p>Loading...</p>
-                            ) : (
-                              categories.files.map((cat,i)=> (
-                                
-                                <option value={cat.id}>{cat.title}</option>         
-
-                              )))}
-                        </select>         
-                        </div>
-
-                        <div className="col-12 col-sm-2 px-2">
-                        <select mandatory  onChange={handleAlbumFilterSelection}  className="dropDown" name="album" id="albums_filter">
-                        
-                        <option value="" selected={filterCategory ? false:true} disabled >Choose album</option>
-           
-                        {(typeof albums.files === 'undefined') ? (
-                              <p>Loading...</p>
-                            ) : (
-                              albums.files.map((album,i)=> (
-                                
-                                <option  hidden={filterCategory==album.category_id? false:true} value={album.id}>{album.title} || {album.category_id}</option>         
-
-                              )))}
-                        </select> 
-                        </div> */}
+                      {props.token?(
                         <div className="col-12 col-sm-2 pr-2 " style={{zIndex:2}}>
                         <button onClick={() => {setPhotoForm({category_id:"",album_id:""});setInput(true);}}className="btn btn-success">+</button>
-                        {/* <a href="#" className="px-5" onClick={() => resetFilter()}>View All</a> */}
+                       
                         </div>
+                      ):null}
+                        
    
 
     </div>

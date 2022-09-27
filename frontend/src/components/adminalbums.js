@@ -3,7 +3,7 @@ import React,{ useEffect, useState,useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-function AdminAlbums() {
+function AdminAlbums(props) {
 const[album_id,setAlbumID]=useState(null)
 const[input,setInput]=useState(false);
 const[data,setData] = useState([{}]);
@@ -36,8 +36,6 @@ const[feedback,setFeedback] = useState(null)
         // handle validations
         const file = e.target.files[0];
         setAlbumPicture(file)
-      
-
       };
 
     
@@ -171,7 +169,7 @@ const[feedback,setFeedback] = useState(null)
 
       <div>
         <div className="spacerXXL">
-              
+              <h1>{props.token}</h1>
               </div>
       {feedback? (
         <div class="alert alert-dark" role="alert">
@@ -258,12 +256,13 @@ const[feedback,setFeedback] = useState(null)
 
 
             <div className="text-center w-100" id=''>
-                <div className="d-flex justify-content-end pb-5" style={{zIndex:2}}>
-                
 
-                <button onClick={() => {setAlbumForm({title:"",seo:"",category_id:""});setInputType("New");setInput(true);}} id='btn-new' className="btn btn-success mx-2">+</button>
-  
+                  {props.token? (
+                    <div className="d-flex justify-content-end pb-5" style={{zIndex:2}}>
+                    <button onClick={() => {setAlbumForm({title:"",seo:"",category_id:""});setInputType("New");setInput(true);}} id='btn-new' className="btn btn-success mx-2">+</button>
                 </div>
+                  ):null}
+                
                 <div className="gallery-grid ">
 
       

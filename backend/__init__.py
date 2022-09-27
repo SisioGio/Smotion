@@ -23,13 +23,12 @@ app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_DEBUG'] = True
-app.config['MAIL_USERNAME'] = "onlineshop420it@gmail.com"
-app.config['MAIL_PASSWORD'] = "WarsawViterbo98!"
-app.config['MAIL_DEFAULT_SENDER'] = "onlineshop420it@gmail.com"
+
+
 app.config['MAIL_MAX_EMAILS'] = 1
 app.config['S3_BUCKET'] = "smotion"
-app.config["S3_KEY"] = "AKIAYG4A4OEXYDU6ED4R"
-app.config['S3_SECRET'] = "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"
+app.config["S3_KEY"] = os.environ.get("S3_KEY")
+app.config['S3_SECRET'] = os.environ.get('S3_SECRET')
 app.config['S3_LOCATION'] = 'http://{}.s3.amazonaws.com/'.format("smotion")
 
 
