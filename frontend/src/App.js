@@ -14,7 +14,7 @@ import AdminAlbums from './components/adminalbums'
 import PhotosAdmin from './components/photosadmin'
 import About from './components/about'
 import Footer from "./components/footer";
-
+import backgroundimg from './images/home-background-phone.jpg'
 
 function App() {
 
@@ -32,7 +32,7 @@ function App() {
       
                <div className="min-height">
 
-              <div id="background"></div>
+              <img id="background" src={backgroundimg}></img>
                   <>
                   <HashRouter basename={process.env.PUBLIC_URL}>
                 

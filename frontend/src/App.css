@@ -45,13 +45,14 @@ body{
 
 
 @media screen and (max-width: 600px) {
-  #background{
+  /* #background{
+    
     background: white url("./images/home-background-phone.jpg")   center center no-repeat;
     max-width: 100%;
     height: 100vh;
     position: fixed;
     z-index: -5;
-  }
+  } */
 
 }
 
@@ -203,13 +204,7 @@ body{
 /* Responsive layout - makes a two column-layout instead of four columns */
 @media screen and (max-width: 600px) {
 
-  #background{
-    background: white url("./images/home-background.jpg")  center center no-repeat;
-    width:100%;
-    height: 100vh;
-    position: fixed;
-    z-index: -5;
-  }
+
 
 
 /* .home-img-container img {
