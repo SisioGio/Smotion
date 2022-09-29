@@ -44,6 +44,18 @@ body{
 }
 
 
+@media screen and (max-width: 600px) {
+  #background{
+    background: white url("./images/home-background-phone.jpg")   center center no-repeat;
+    max-width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: -5;
+  }
+
+}
+
+
 
 #login-form{
   
@@ -160,10 +172,10 @@ body{
 
 }
 @media(max-width: 560px){
-  body{
+  /* body{
     background: black url("./images/home-background-phone.jpg")  center center no-repeat fixed;
    
-}
+} */
 }
 #background{
 

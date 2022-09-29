@@ -32,7 +32,7 @@ function App() {
       
                <div className="min-height">
 
-
+              <div id="background"></div>
                   <>
                   <HashRouter basename={process.env.PUBLIC_URL}>
                 
