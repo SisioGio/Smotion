@@ -169,7 +169,7 @@ const[feedback,setFeedback] = useState(null)
 
       <div>
         <div className="spacerXXL">
-              <h1>{props.token}</h1>
+             
               </div>
       {feedback? (
         <div class="alert alert-dark" role="alert">

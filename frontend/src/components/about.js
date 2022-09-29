@@ -49,23 +49,6 @@ function About(props){
                 );
             } 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       const submitForm = (event) => {
         
         event.preventDefault();

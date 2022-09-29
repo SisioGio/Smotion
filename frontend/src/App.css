@@ -47,10 +47,7 @@ body{
 a {
   text-decoration: none!important;
 }
-#background{
 
- display: none;
-}
 
 
 #login{
@@ -622,7 +619,7 @@ nav{
 }
 .gallery-grid{
 
-  padding: 5rem 10rem;
+  padding: 2rem 0rem;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
@@ -723,7 +720,8 @@ nav{
 }
 .gallery-preview h1 {
   font-family: 'Didact Gothic', sans-serif;
-  font-size: 3rem;
+  font-size: 1.5rem;
+  padding: 1rem 0rem;
   ;
 
 }
@@ -734,6 +732,7 @@ nav{
 #company-name {
   font-family: 'Quicksand', sans-serif;
   font-size: 1.85rem;
+
 }
 
 #img-profile-box {
@@ -774,7 +773,7 @@ nav{
 }
 nav a{
   font-family: 'Montserrat', sans-serif;
-  font-weight: 700!important;
+ 
   font-size: 1.0rem;
 }
 
@@ -860,7 +859,25 @@ nav a{
 
 
 @media (min-width: 576px) {
+  #background{
 
+    display: none;
+   }
+  .gallery-preview h1 {
+    font-family: 'Didact Gothic', sans-serif;
+    font-size: 1.75rem;
+    padding: 1.75rem 0rem;
+    ;
+  
+  }
+  .gallery-preview a {
+    display: inline-table;
+
+    background-color: transparent !important;
+
+    opacity: 0.8;
+    font-size: 1.5rem;
+}
  #about{
     padding: 10rem 1rem 5rem 1rem;
 }
@@ -925,20 +942,30 @@ nav a{
               padding-top:7.5rem
             }
           }
-          .gallery-preview a {
-            display: inline-table;
-
-            background-color: transparent !important;
-
-            opacity: 0.8;
-            font-size: 1.5rem;
-}
+          
 
 
 
 
 
 @media (min-width: 768px) {
+  .gallery-preview h1 {
+  
+    padding: 2rem 0rem;
+    ;
+  
+  }
+  .gallery-grid{
+
+    padding: 5rem 2rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(25%,1fr));
+    grid-auto-rows: 25%;
+    grid-auto-flow: dense;
+  }
+
+
   #about{
     padding: 10rem 5rem 5rem 5rem;
 }
@@ -1023,6 +1050,11 @@ nav a{
     transform: scale(1.025);
   }
 @media (min-width: 992px) {
+  .gallery-grid{
+
+    padding: 5rem 5rem;
+    
+  }
   #about{
     padding: 10rem 7.5rem 5rem 7.5rem;
 }
@@ -1087,7 +1119,17 @@ nav a{
 
 
 @media (min-width: 1200px) {
+  .gallery-preview h1 {
+  
+    padding: 3rem 0rem;
+    ;
+  
+  }
+  .gallery-grid{
 
+    padding: 5rem 10rem;
+    
+  }
   #about{
     padding: 10rem 25rem 0rem 25rem;
     align-items: center;

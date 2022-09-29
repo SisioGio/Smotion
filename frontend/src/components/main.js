@@ -64,11 +64,11 @@ function Main(props){
 
                         <Link to='photos' >
                         
-                        <div onClick={() => (localStorage.setItem("Album", file.id),props.setUrl("photos"),localStorage.setItem("CurrentUrl", "photos"))} id="people-section" class='position-relative text-center gallery-preview  pb-5' >
+                        <div onClick={() => (localStorage.setItem("Album", file.id),props.setUrl("photos"),localStorage.setItem("CurrentUrl", "photos"))} id="people-section" class='position-relative text-center gallery-preview  ' >
                             
                                
                         <img src={file.path} id='people-img' alt={file.seo} ></img>
-                        <div class='pt-5'>
+                        <div class=''>
                             <h1>{file.title}</h1>
                             
                                 {/* <p class='px-3 px-sm-5'>
