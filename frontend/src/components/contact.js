@@ -13,38 +13,6 @@ function Contact() {
       window.open('mailto:Smotion.photography@smotion.pl')
     }
 
-//     function send_email(event) {
-      
-//         console.log(contactForm.name)
-//         console.log(contactForm.surname)
-//         console.log(contactForm.phone)
-//         console.log(contactForm.email)
-//         console.log(contactForm.text)
-//         const formData = new FormData();
-//         formData.append("name", contactForm.name);
-//         formData.append("surname",contactForm.surname)
-//         formData.append("phone",contactForm.phone)
-//         formData.append("email",contactForm.email)
-//         formData.append("text",contactForm.text)
-//         axios.post("/sendemail/", formData,
-//         {headers: {
-//             'Content-Type':'application/json'
-//           }}
-//           )
-//         .then((response) => {
-        
-//                 console.log(response)
-          
-//         }).catch((error) => {
-//           if (error.response) {
-//             console.log("Error during logging...")
-//             console.log(error.response)
-//             console.log(error.response.status)
-//             console.log(error.response.headers)
-//             }
-//         }
-//     )
-// }
 const Mailto = ({ email, subject, body, children }) => {
   return (
     <a class="btn btn-black w-100 draw meet border-dark text-dark" type='button' href={`mailto:${email}?subject=${encodeURIComponent(subject) || ''}&body=${encodeURIComponent(body) || ''}`}>Submit</a>
@@ -67,7 +35,7 @@ const Mailto = ({ email, subject, body, children }) => {
     
              
               <div class="text-center  text-dark" id='contact-us-title'>
-                <h3>Contact form</h3>
+                <h3>Let's get in contact!</h3>
               </div>
               <form class='' enctype="multipart/form-data" method="POST" >
                 
@@ -96,7 +64,7 @@ const Mailto = ({ email, subject, body, children }) => {
                 </div>
                 </div>
                 <div class="form-group my-2">
-                <input name='text' className="form-control w-100" id='text-form' onChange={handleChange} type={contactForm.text} text={contactForm.text}   required  value={contactForm.text} placeholder='Type your message here...'></input>
+                <input name='text' className="form-control w-100 form-input-email" id='text-form' onChange={handleChange} type={contactForm.text} text={contactForm.text}   required  value={contactForm.text} placeholder='Type your message here...'></input>
                      
                 </div>
                 <Mailto email={contactForm.email} subject={"Good news! " +contactForm.name + " would like to talk with you!"} body={contactForm.text}/>
