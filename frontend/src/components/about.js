@@ -180,7 +180,7 @@ function About(props){
                             ):null}
                     
              
-                    <div className="clients-logos">
+                    {/* <div className="clients-logos">
                     {(typeof data.files === 'undefined') ? (
                       <p>Loading...</p>
                     ) : (
@@ -196,7 +196,49 @@ function About(props){
                       )))}
                         
                         
-                    </div>
+                    </div> */}
+
+<div class="container-fluid h-100">
+  <div class="row align-items-center h-100">
+    <div class="container-fluid rounded" id='customer-wrapper'>
+      {/* <h1 class="text-center">Customers</h1> */}
+      <div class="slider" style={{'--amount': '14'}}>
+        <div class="logos" style={{'--amount': '14'}}>
+        {(typeof data.files === 'undefined') ? (
+                      <p>Loading...</p>
+                    ) : (
+                      data.files.map((file,i)=> (
+                        <div className="fab">
+                            <img src={file.path} alt="" />
+                            {props.token? (
+                                <button  type='button' onClick={()=> deleteClient(file.id)} className="btn btn-danger">Delete</button>
+                            ):null}
+                            
+                        </div>
+                            
+                      )))}
+        </div>
+        <div class="logos" style={{'--amount': '14'}}>
+        {(typeof data.files === 'undefined') ? (
+                      <p>Loading...</p>
+                    ) : (
+                      data.files.map((file,i)=> (
+                        <div className="fab">
+                            <img src={file.path} alt="" />
+                            {props.token? (
+                                <button  type='button' onClick={()=> deleteClient(file.id)} className="btn btn-danger">Delete</button>
+                            ):null}
+                            
+                        </div>
+                            
+                      )))}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
             
             </div>  
            

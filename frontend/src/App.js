@@ -36,9 +36,9 @@ function App() {
                   <>
                   <HashRouter basename={process.env.PUBLIC_URL}>
                 
-
+                
                  
-                  <Nav setUrl={setUrl} currentUrl={currentUrl}/>
+                  <Nav setUrl={setUrl} token={token} currentUrl={currentUrl}/>
                   
                     <Routes>
                    

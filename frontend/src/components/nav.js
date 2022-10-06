@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import useToken from './useToken'
 import { NavHashLink } from 'react-router-hash-link';
 import axios from "axios";
+
 function Nav(props){
 
 
@@ -48,7 +49,7 @@ function Nav(props){
 
   useEffect(() => {
    
-    const token = localStorage.getItem("token");
+    const token = props.token;
     
     if (token) {
       setauthenticated(true);
@@ -63,10 +64,10 @@ function Nav(props){
 
         <div className="navContainer">
 
-          
+<p>{token}</p>
 
 
-<nav class="navbar navbar-expand-xl navbar-dark fixed ">
+<nav class="navbar navbar-expand-xl navbar-light fixed ">
 
   <div class="container-fluid">
   
@@ -80,18 +81,19 @@ function Nav(props){
 
 
     
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse  justify-content-end" id="navbarNav">
+    <div class="collapse navbar-collapse  justify-content-end" data-toggle="collapse"  data-target=".navbar-collapse" id="navbarNav">
      
       <ul class="navbar-nav  text-center">
 
         {props.currentUrl==="/" || props.currentUrl === null?(
           <li class="nav-item">
-               <NavHashLink to="#home" onClick={()=>props.setUrl("/")} className="nav-link"
+               <NavHashLink to="#home"  onClick={()=>props.setUrl("/")} className="nav-link"
           >
-           Home
+            <span data-bs-toggle="collapse" data-bs-target="#navbarNav">Home</span>
+          
 
           </NavHashLink>
               </li>
@@ -99,21 +101,27 @@ function Nav(props){
         ):(
           <Link to='/'>
               <li class="nav-item">
-                <a onClick={()=>props.setUrl("/")} class="nav-link" aria-current="page" href="#home">Home</a>
+                <a onClick={()=>props.setUrl("/")} class="nav-link"  aria-current="page" href="#home">
+                <span data-bs-toggle="collapse" data-bs-target="#navbarNav">Home</span>
+                </a>
               </li>
         </Link>
         )}  
         
         <Link to='/about'>
         <li class="nav-item">
-          <a onClick={()=>props.setUrl("about")} class="nav-link" href="#about">About Me</a>
+          <a onClick={()=>props.setUrl("about")} class="nav-link" href="#about"><span data-bs-toggle="collapse" data-bs-target="#navbarNav">About me</span></a>
         </li>
         </Link>
-       
+        <Link to='/photos'>
+        <li class="nav-item">
+          <a onClick={()=>props.setUrl("photos")} class="nav-link" href="#gallery"><span data-bs-toggle="collapse" data-bs-target="#navbarNav">Gallery</span></a>
+        </li>
+        </Link>
         {props.currentUrl ==="/"?(
             <li class="nav-item">
             <NavHashLink to="#contact" onClick={()=>props.setUrl("/")} className="nav-link"
-              >Contact</NavHashLink>
+              ><span data-bs-toggle="collapse" data-bs-target="#navbarNav">Contact</span></NavHashLink>
            </li>
         ):(
           null
@@ -123,7 +131,7 @@ function Nav(props){
                 <Link to='/albums'>
 
                 <li class="nav-item">
-                <a class="nav-link " onClick={()=> (props.setUrl("albums"),setFocus("Albums"))} href="#">Albums</a>
+                <a class="nav-link " onClick={()=> (props.setUrl("albums"),setFocus("Albums"))} href="#"><span data-bs-toggle="collapse" data-bs-target="#navbarNav">Albums</span></a>
                 </li>
               </Link>
               ):null}
@@ -131,7 +139,7 @@ function Nav(props){
           {token? (
           <Link to='/photos'>
           <li class="nav-item">
-          <a onClick={()=> (setFocus("Pictures"),props.setUrl("pics"))} class="nav-link " href="#">Pictures</a>
+          <a onClick={()=> (setFocus("Pictures"),props.setUrl("pics"))} class="nav-link " href="#"><span data-bs-toggle="collapse" data-bs-target="#navbarNav">Pictures</span></a>
           </li>
           </Link>
           ):null}
@@ -141,7 +149,7 @@ function Nav(props){
    
             
     <li class="nav-item">
-            <a class="nav-link " onClick={()=> (logMeOut(),props.setUrl("/"))} href="#">Logout</a>
+            <a class="nav-link " onClick={()=> (logMeOut(),props.setUrl("/"))} href="#"><span data-bs-toggle="collapse" data-bs-target="#navbarNav">Logout</span></a>
             </li>
    
         ):(null

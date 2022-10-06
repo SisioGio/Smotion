@@ -16,17 +16,15 @@ function Footer() {
      <div className="col-12 ">
        <div class="row d-flex justify-content-between">
          <span style={{fontSize:"2rem"}} className='px-2'>
-           <a href="" id='facebook'><i className="fab fa-facebook"></i></a>
+           <a href="https://www.facebook.com/profile.php?id=100076573800194" id='facebook'><i className="fab fa-facebook"></i></a>
          </span>
          <span style={{fontSize:"2rem"}} className='px-2'>
-           <a href=""><i id='insta' className="fab fa-instagram"></i></a>
+           <a href="https://www.instagram.com/smotion_photo/?hl=en"><i id='insta' className="fab fa-instagram"></i></a>
          </span>
          <span style={{fontSize:"2rem"}} className='px-2'>
-           <a href=""><i className="fas fa-phone" style={{color:"#343a40!important"}}></i></a>
+           <a href="tel:+48 791653253"><i className="fas fa-phone" style={{color:"#343a40!important"}}></i></a>
          </span>
-         <span style={{fontSize:"2rem"}} className='px-2'>
-           <a href=""><i className="fas fa-envelope" style={{color:"#343a40!important"}}></i></a>
-         </span>
+        
        </div>
      </div>
 
