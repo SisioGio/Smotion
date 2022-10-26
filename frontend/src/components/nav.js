@@ -67,7 +67,7 @@ function Nav(props){
 <p>{token}</p>
 
 
-<nav class="navbar navbar-expand-xl navbar-light fixed ">
+<nav class="navbar navbar-expand-md navbar-light fixed ">
 
   <div class="container-fluid">
   
