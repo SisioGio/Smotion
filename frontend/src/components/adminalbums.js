@@ -69,6 +69,7 @@ function AdminAlbums(props) {
           });
       })
       .catch((err) => {
+        alert(err.response.data.message);
         console.log(err);
       });
   };
@@ -184,7 +185,6 @@ function AdminAlbums(props) {
               <div className="input-container py-3 custom-file">
                 <input
                   id="customFile"
-                  required
                   name="picture"
                   className="custom-file-input my-2"
                   accept="image/*"

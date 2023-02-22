@@ -37,8 +37,8 @@ function Adminphotos(props) {
     setPhotoPicture(file);
   };
 
-  const getAllPhotos = (e) => {
-    fetch("/get_photos/")
+  const getAllPhotos = async (e) => {
+    await fetch("/get_photos/")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -64,22 +64,22 @@ function Adminphotos(props) {
       });
   }, []);
 
-  const submitForm = (event) => {
+  const submitForm = async (event) => {
     // event.preventDefault();
     const formData = new FormData();
     for (let i = 0; i < selectedFile.length; i++) {
       formData.append("file", selectedFile[i]);
     }
     formData.append("album", album);
-    axios
+    await axios
       .post("/new_photo/", formData, {
         headers: {
           "Content-Type": "application/json",
         },
       })
-      .then((res) => {
+      .then(async (res) => {
         console.log("Success");
-        getAllPhotos();
+        await getAllPhotos();
         console.log(res);
       })
       .catch((err) => {
@@ -88,19 +88,20 @@ function Adminphotos(props) {
       });
   };
 
-  const updatephoto = (event) => {
+  const updatephoto = async (event) => {
     const formData = new FormData();
     formData.append("photo", photoPicture);
     formData.append("album", album);
     formData.append("photo_id", photo_id);
-    axios
+    await axios
       .post("/update_photo/", formData, {
         headers: {
           "Content-Type": "application/json",
         },
       })
-      .then((res) => {
+      .then(async (res) => {
         console.log(res);
+        await getAllPhotos();
       })
       .catch((err) => {
         console.log(err);
@@ -198,6 +199,14 @@ function Adminphotos(props) {
               </div>
 
               <div className="row d-flex justify-content-around">
+                <button
+                  onClick={() => setInput(false)}
+                  className="btn btn-large btn-info w-100 my-2 col-3"
+                  style={{ borderRadius: "50px" }}
+                >
+                  Close
+                </button>
+
                 {inputType == "New" ? (
                   <button
                     onClick={submitForm}
@@ -225,14 +234,6 @@ function Adminphotos(props) {
                     Delete
                   </button>
                 )}
-
-                <button
-                  onClick={() => setInput(false)}
-                  className="btn btn-large btn-info w-100 my-2 col-3"
-                  style={{ borderRadius: "50px" }}
-                >
-                  Close
-                </button>
               </div>
             </form>
           </div>
@@ -257,7 +258,7 @@ function Adminphotos(props) {
             </div>
           </div>
 
-          <div className="gallery-grid ">
+          <div className="gallery-grid-pics ">
             {typeof data.files === "undefined" ? (
               <p>Loading...</p>
             ) : (

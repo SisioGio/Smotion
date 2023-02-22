@@ -145,6 +145,14 @@ def new_album():
     album_picture = request.files.get("album_file")
     s3 = s3_login()
     album_picture_path,image_url = save_document_to_s3(s3,album_picture)
+    
+    with Image.open(requests.get(image_url, stream=True).raw) as img:
+        print(img.height)
+        if(img.width != 1920 or img.height != 600):
+            return jsonify(message="Image size must be 1920 x 600 px"),500
+        
+        
+        
     new_album = Album(
         title=title,
         path=image_url,
