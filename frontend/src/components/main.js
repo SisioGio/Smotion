@@ -14,7 +14,7 @@ function Main(props){
     }
   useEffect(() =>{
 
-    fetch("/get_albums/").then(
+    fetch("/albums/").then(
       res => res.json()
     ).then( 
       data => {

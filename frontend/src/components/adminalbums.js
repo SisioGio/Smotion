@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import { DispatchFeedbackContexts } from "../App";
 function AdminAlbums(props) {
   const [album_id, setAlbumID] = useState(null);
   const [input, setInput] = useState(false);
@@ -10,9 +10,9 @@ function AdminAlbums(props) {
   const [inputType, setInputType] = useState("New");
   const [selectedFile, setSelectedFile] = useState([]);
   const [albumPicture, setAlbumPicture] = useState(null);
-
+  const [loading,setLoading] = useState(false)
   const [feedback, setFeedback] = useState(null);
-
+  const dispatch = DispatchFeedbackContexts();
   const [albumForm, setAlbumForm] = useState({
     title: "",
     seo: "",
@@ -34,7 +34,7 @@ function AdminAlbums(props) {
   };
 
   useEffect(() => {
-    fetch("/get_albums")
+    fetch("/albums")
       .then((res) => res.json())
       .then((data) => {
         setData(data);
@@ -51,8 +51,9 @@ function AdminAlbums(props) {
     formData.append("album_file", albumPicture);
     formData.append("title", albumForm.title);
     formData.append("seo", albumForm.seo);
+    setLoading(true)
     await axios
-      .post("/new_album/", formData, {
+      .post("/album/", formData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -61,16 +62,28 @@ function AdminAlbums(props) {
       })
       .then(async (res) => {
         console.log(res);
-        await fetch("/get_albums")
+        await fetch("/albums")
           .then((res) => res.json())
           .then((data) => {
             setData(data);
             console.log(data);
+            dispatch({
+              value: true,
+              message: "Success! New album added",
+              type: "Success",
+            });
+            setLoading(false)
           });
       })
       .catch((err) => {
-        alert(err.response.data.message);
-        console.log(err);
+        setLoading(false)
+        dispatch({
+          value: true,
+          message: err.response.data.message,
+          type: "Error",
+        });
+
+ 
       });
   };
 
@@ -81,18 +94,29 @@ function AdminAlbums(props) {
     formData.append("title", albumForm.title);
     formData.append("seo", albumForm.seo);
     formData.append("album_id", album_id);
-
+    setLoading(true)
     axios
-      .post("/update_album/", formData, {
+      .put("/album/", formData, {
         headers: {
           "Content-Type": "application/json",
         },
       })
       .then((res) => {
+        dispatch({
+          value: true,
+          message: "Success! Album updated",
+          type: "Success",
+        });
         console.log(res);
+        setLoading(false)
       })
       .catch((err) => {
-        alert("File Upload Error");
+        setLoading(false)
+        dispatch({
+          value: true,
+          message: "Error from server",
+          type: "Error",
+        });
         console.log(err);
       });
   };
@@ -101,16 +125,22 @@ function AdminAlbums(props) {
 
     event.preventDefault();
     formData.append("album_id", album_id);
-
+    setLoading(true)
     axios
-      .post("/delete_album/", formData, {
+      .delete("/album/", formData, {
         headers: {
           "Content-Type": "application/json",
         },
       })
       .then((res) => {
+        dispatch({
+          value: true,
+          message: "Album deleted!",
+          type: "Success",
+        });
         console.log(res);
-        fetch("/get_albums")
+        setLoading(false)
+        fetch("/albums")
           .then((res) => res.json())
           .then((data) => {
             setData(data);
@@ -118,6 +148,12 @@ function AdminAlbums(props) {
           });
       })
       .catch((err) => {
+        setLoading(false)
+        dispatch({
+          value: true,
+          message: "Error from server",
+          type: "Error",
+        });
         alert("File Upload Error");
         console.log(err);
       });
@@ -133,7 +169,18 @@ function AdminAlbums(props) {
   }
 
   return (
-    <div>
+    <div  id="main-external">
+
+
+ <div className={loading? "loading-screen  visible-loading" : "loading-screen"}>
+ <div>
+ <h1>
+ Give me a moment! I'm processing your request</h1>
+ <div class="loader"></div>
+ </div>
+ 
+</div>
+      
       <div className="spacerXXL"></div>
       {feedback ? (
         <div class="alert alert-dark" role="alert">
@@ -200,7 +247,7 @@ function AdminAlbums(props) {
                 {inputType == "New" ? null : (
                   <button
                     onClick={deleteAlbum}
-                    className="btn btn-large btn-danger w-100 m-2 col-3"
+                    className="btn btn-large btn-outline-danger w-100 m-2 col-3"
                     style={{ borderRadius: "50px" }}
                   >
                     Delete
@@ -230,7 +277,7 @@ function AdminAlbums(props) {
                 {inputType == "New" ? (
                   <button
                     onClick={submitForm}
-                    className="btn btn-large btn-success w-100 my-2 col-3"
+                    className="btn btn-large btn-outline-success w-100 my-2 col-3"
                     style={{ borderRadius: "50px" }}
                   >
                     Submit
@@ -238,7 +285,7 @@ function AdminAlbums(props) {
                 ) : (
                   <button
                     onClick={updateAlbum}
-                    className="btn btn-large btn-success w-100 my-2 col-3"
+                    className="btn btn-large btn-outline-success w-100 my-2 col-3"
                     style={{ borderRadius: "50px" }}
                   >
                     Update
@@ -274,24 +321,22 @@ function AdminAlbums(props) {
               <p>Loading...</p>
             ) : (
               data.files.map((file, i) => (
-                <div>
+                <div className="album-admin-container" onClick={() => localStorage.setItem("Album", file.id)}>
                   <Link to="./../photos">
-                    <div
-                      className=" w-100   p-2 text-center album"
-                      onClick={() => localStorage.setItem("Album", file.id)}
-                    >
+                    
                       <img
                         alt={file.seo}
                         className="img-fluid"
                         src={file.path}
                       ></img>
+
                       <h3>{file.title}</h3>
-                    </div>
+           
                   </Link>
-                  <div className="w-100">
-                    <button
-                      className="btn btn-large btn-info"
-                      onClick={() => {
+            
+                  <svg 
+                  className="edit-icon"
+                  onClick={() => {
                         setInput(true);
                         setAlbumID(file.id);
                         setInputType("Update");
@@ -300,11 +345,10 @@ function AdminAlbums(props) {
                           seo: file.seo,
                           category_id: file.category_id,
                         });
-                      }}
-                    >
-                      Edit
-                    </button>
-                  </div>
+                      }} clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m4.481 15.659c-1.334 3.916-1.48 4.232-1.48 4.587 0 .528.46.749.749.749.352 0 .668-.137 4.574-1.492zm1.06-1.061 3.846 3.846 11.321-11.311c.195-.195.293-.45.293-.707 0-.255-.098-.51-.293-.706-.692-.691-1.742-1.74-2.435-2.432-.195-.195-.451-.293-.707-.293-.254 0-.51.098-.706.293z" fill-rule="nonzero"/></svg>
+
+
+              
                 </div>
               ))
             )}

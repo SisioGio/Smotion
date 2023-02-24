@@ -137,7 +137,7 @@ def wait_for_file(filepath):
         time.sleep(wait_time)
 
 
-@app.route("/new_album/", methods=["POST"])
+@app.route("/album/", methods=["POST"])
 def new_album():
     # try:
     seo = request.form.get("seo")
@@ -186,7 +186,7 @@ def new_album():
     return "OK!"
 
 
-@app.route("/update_album/", methods=["GET", "POST"])
+@app.route("/album/", methods=["PUT"])
 def update_album():
     title = request.form.get("title")
     album_id = request.form.get("album_id")
@@ -212,7 +212,7 @@ def update_album():
     return "New  Album Added"
 
 
-@app.route("/delete_album/", methods=["GET", "POST"])
+@app.route("/album/", methods=["DELETE"])
 def delete_album():
 
     album_id = request.form.get("album_id")
@@ -238,7 +238,7 @@ def get_album_image(img_id):
     return image.path
 
 
-@app.route("/get_albums/", methods=["GET"])
+@app.route("/albums/", methods=["GET"])
 def get_albums():
     albums = Album.query.all()
     return jsonify(files=[i.serialize for i in albums])
@@ -251,13 +251,13 @@ def get_album_img(img_id):
     return "Hello"
 
 
-@app.route("/get_photos/", methods=["GET"])
+@app.route("/photo/", methods=["GET"])
 def get_photos():
     pictures = Picture.query.all()
     return jsonify(files=[i.serialize for i in pictures])
 
 
-@app.route("/new_photo/", methods=["GET", "POST"])
+@app.route("/photo/", methods=["POST"])
 def new_photo():
     try:
         print("Adding new images...")
@@ -269,6 +269,7 @@ def new_photo():
             filename,image_url  = save_document_to_s3(s3,image)
             with Image.open(requests.get(image_url, stream=True).raw) as img:
                 # img = Image.open(filename)
+               
                 css_class = ""
                 if img.width > img.height:
                     css_class = "h-stretch"
@@ -279,14 +280,16 @@ def new_photo():
             new_image = Picture(album_id=album_id, path=image_url, class_name=css_class)
             db.session.add(new_image)
             db.session.commit()
+        pictures = Picture.query.all()
+        return jsonify(files=[i.serialize for i in pictures])
 
     except Exception as e:
         print(str(e))
         return {"Error": "Upload files failed."}
-    return "New  Photo added!"
+  
 
 
-@app.route("/update_photo/", methods=["GET", "POST"])
+@app.route("/photo/", methods=["PUT"])
 def update_photo():
     print("Updating file...")
     photo_id = request.form.get("photo_id")

@@ -93,7 +93,7 @@ function Nav(props) {
                 <li class="nav-item">
                   <NavHashLink
                     to="#home"
-                    onClick={() => props.setUrl("/")}
+                    onClick={() => (props.setUrl("/"))}
                     className="nav-link"
                   >
                     <span data-bs-toggle="collapse" data-bs-target="#navbarNav">

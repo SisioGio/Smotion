@@ -1,5 +1,7 @@
 // Importing modules
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useReducer,
+  createContext,
+  useContext } from "react";
 import "./App.css";
 
 import Nav from './components/nav';
@@ -15,9 +17,23 @@ import PhotosAdmin from './components/photosadmin'
 import About from './components/about'
 import Footer from "./components/footer";
 import backgroundimg from './images/home-background-phone.jpg'
+import Feedback from "./components/feedback";
 
+
+const showFeedbackContext = createContext();
+const dispatchFeedbackContext = createContext();
+const FeedbackReducer = (state, action) => {
+  return {
+    message: action.message,
+    type: action.type,
+  };
+};
+const Feedbackstates = {
+  message: "",
+  type: "",
+};
 function App() {
-
+  const [feedback, setFeedback] = useReducer(FeedbackReducer, Feedbackstates);
   const { token, removeToken, setToken } = useToken();
   const[currentUrl,setCurrentUrl] = useState("/")
 
@@ -28,10 +44,11 @@ function App() {
   }
 
     return (
-
+      <dispatchFeedbackContext.Provider value={setFeedback}>
+      <showFeedbackContext.Provider value={feedback}>
       
                <div className="min-height">
-
+               <Feedback />
               <img id="background" src={backgroundimg}></img>
                   <>
                   <HashRouter basename={process.env.PUBLIC_URL}>
@@ -61,7 +78,8 @@ function App() {
                 </div>
 
    
-   
+                </showFeedbackContext.Provider>
+        </dispatchFeedbackContext.Provider>
 
 
    
@@ -70,3 +88,6 @@ function App() {
 }
   
 export default App;
+
+export const DispatchFeedbackContexts = () =>useContext(dispatchFeedbackContext);
+export const ShowFeedbackContexts = () => useContext(showFeedbackContext);

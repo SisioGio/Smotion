@@ -21,6 +21,34 @@ nav {
 a {
   color: rgb(71, 66, 66) !important;
 }
+
+.feedback-visible {
+  top: 0;
+}
+.feedback-hidden {
+  top: -100%;
+}
+#feedback {
+  text-align: center;
+  transition: all 0.7s ease;
+  width: 100%;
+  z-index: 100;
+  position: fixed;
+  padding: rem;
+  background-color: red;
+  cursor: pointer;
+
+  opacity: 0.85;
+  color: black;
+  margin: 0;
+}
+
+#feedback p {
+  color: white;
+    font-weight: bold;
+    margin: 0;
+    padding: 0.5rem;
+}
 .spacerXXL {
   position: relative;
   height: 75px;
@@ -76,6 +104,17 @@ ul img {
 #logo img {
   width: 75px;
   height: 75px;
+}
+.album-admin-container{
+  position: relative
+}
+.edit-icon{
+  cursor: pointer;
+  width: 24px;
+  top: 0;
+  position: absolute;
+  right: 0;
+  transform: translate(-100%, 50%);
 }
 ul li {
   padding: 0.5rem 0rem 0.5rem 0.75rem;
@@ -546,8 +585,65 @@ p {
   transform: translateX(-50%);
   transform: translateY(50%);
 }
+.filename{
+  color: rgb(0, 0, 0);
+  font-weight: lighter;
+  display: block;
+  text-align: start;
 
+}
+.loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #ffffff;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  margin: auto;
+
+}
+
+.album-admin-container h3{
+background: #404040;
+    color: white;
+    overflow-wrap: break-word;
+}
+.loading-screen{
+  position: fixed;
+  z-index: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #000000d9;
+  color: white;
+  transition: visibility 0.3s linear,opacity 0.3s linear;
+  opacity: 0;
+
+}
+
+
+.visible-loading {
+  opacity: 1;
+  z-index: 100000;
+}
+.loading-screen>div:nth-child(1){
+  z-index: 10000;
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.text-red{
+  color: red;
+}
 #inputForm svg {
+  cursor: pointer;
   width: 37px;
   position: absolute;
   top: 0;
@@ -571,10 +667,11 @@ p {
 }
 .album h3 {
   position: relative;
-  top: -50%;
-  transform: translateY(-50%);
+  bottom: 0;
+  transform: translateY(-100%);
   background-color: rgb(255 255 255 / 84%);
   border-radius: 20px;
+  margin: 0;
 }
 .dropDown {
   width: 100%;
@@ -600,16 +697,9 @@ s .dropDown:focus-visible {
 nav {
   padding: 2rem 2rem !important;
 }
-.gallery-grid {
-  padding: 2rem 0rem;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
 
-  grid-auto-flow: dense;
-}
 .gallery-grid div {
-  padding: 0.5rem;
+ 
   transition: transform 0.3s;
 }
 /* .gallery-grid div:hover{
@@ -623,7 +713,7 @@ nav {
   grid-auto-flow: dense;
 }
 .gallery-grid a div {
-  padding: 0.5rem;
+
   transition: transform 0.3s;
 }
 /* .gallery-grid div a:hover{
@@ -646,7 +736,7 @@ nav {
 }
 @media (max-width: 560px) {
   .gallery-grid {
-    padding: 2rem 0rem;
+    padding: 2rem 1rem;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
@@ -733,7 +823,7 @@ nav {
 .navContainer {
   width: 100%;
   position: fixed;
-  z-index: 1;
+  z-index: 10;
 }
 nav a {
   font-family: "Montserrat", sans-serif;
@@ -768,14 +858,7 @@ nav button {
     flex: 50%;
     max-width: 50%;
   }
-  .gallery-grid {
-    padding: 2rem 0rem;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
 
-    grid-auto-flow: dense;
-  }
 }
 /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
@@ -841,6 +924,19 @@ h1 {
 }
 
 @media (min-width: 576px) {
+  .gallery-grid {
+    padding: 2rem 1rem;
+    gap: 1rem;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    
+  }
+
+
+  .gallery-pics{
+    padding: 0rem 1rem;
+  }
   #background {
     display: none;
   }
@@ -916,6 +1012,9 @@ h1 {
   }
 }
 @media (min-width: 768px) {
+  .gallery-pics{
+    padding: 0rem 2rem;
+  }
   #navbarNav {
     background-color: transparent;
   }
@@ -995,18 +1094,12 @@ h1 {
 /* #people-img:hover {
   transform: scale(1.025);
 } */
-@media (max-width: 992px) {
-  .gallery-grid {
-    padding: 2rem 0rem;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
 
-    grid-auto-flow: dense;
-  }
-}
 
 @media (min-width: 992px) {
+  .gallery-pics{
+    padding: 0rem 10rem;
+  }
   .gallery-grid {
     padding: 2rem 0rem;
     width: 100%;
